@@ -5,18 +5,25 @@ PREGIEAPI.load("device").module("api", function(api) {
      * @constructor
      */
     var INTERFACE = function(){
-        this.deviceInterface = null;
+
     };
 
     /**
-     * Описание методов публичного API
+     * MOCK реализация interface с native приложения
+     * @return {INTERFACE}
      */
-    INTERFACE.prototype.getCurrentUserId = function(){ throw new Error("MOCK INTERFACE"); };
+
+    INTERFACE.prototype.deviceInterface = function(){ return this; };
 
     /**
      * Описание методов публичного API
      */
-    INTERFACE.prototype.showToast = function(){ throw new Error("MOCK INTERFACE"); };
+    INTERFACE.prototype.getCurrentUserId = function(){ throw new Error("MOCK INTERFACE - getCurrentUserId()"); };
+
+    /**
+     * Описание методов публичного API
+     */
+    INTERFACE.prototype.showToast = function(){ throw new Error("MOCK INTERFACE - showToast()"); };
 
 
     /**
@@ -30,7 +37,9 @@ PREGIEAPI.load("device").module("api", function(api) {
         /**
          * Реализация interface с native приложения
          */
-        this.deviceInterface = api.device.os.android() ? window.Android : (api.device.os.ios() ? window.iOS : new INTERFACE());
+        this.deviceInterface = function(){
+            return api.device.os.android() ? window.Android : (api.device.os.ios() ? window.iOS : new INTERFACE().deviceInterface());
+        };
     };
 
     /**
@@ -46,7 +55,7 @@ PREGIEAPI.load("device").module("api", function(api) {
      * @return {*}
      */
     API.prototype.getCurrentUserId = function(){
-        return this.deviceInterface.getCurrentUserId();
+        return this.deviceInterface().getCurrentUserId();
     };
 
     /**
@@ -54,7 +63,7 @@ PREGIEAPI.load("device").module("api", function(api) {
      * @param message
      */
     API.prototype.showToast = function(message){
-        this.deviceInterface.showToast(message);
+        this.deviceInterface().showToast(message);
     };
 
 
