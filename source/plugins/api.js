@@ -1,4 +1,4 @@
-PREGIEAPI.load("device").module("api", function(api) {
+PREGIEAPI.load('device', 'utils').module('api', function(api) {
 
     /**
      * Интерфейс, который реализует публичный API
@@ -28,7 +28,30 @@ PREGIEAPI.load("device").module("api", function(api) {
 	/**
 	 * Описание методов публичного API
 	 */
-	INTERFACE.prototype.getAuthToken  = function(){ return 'test-token'; };
+	INTERFACE.prototype.getAuthToken = function(){ return 'test-token'; };
+
+	/**
+	 * Описание методов публичного API
+	 */
+	INTERFACE.prototype.uploadImage = function(options){
+		/**
+		 * Для теста, потом удалить
+		 */
+		var progress = 0;
+		var s_id = setInterval(function(){
+			window[options.progress]({status: 200, progress: ++progress});
+
+			if(progress == 10){
+				clearInterval(s_id);
+
+				window[options.done]({status: 200, url: 'https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'});
+			}
+		}, 1000);
+
+		/**
+		 * Для теста, потом удалить
+		 */
+	};
 
 
     /**
@@ -73,11 +96,24 @@ PREGIEAPI.load("device").module("api", function(api) {
     };
 
 	/**
-	 * Получить токен авторизация с приложения Pregie
+	 * Получить токен авторизация с native приложения
 	 * @return {*}
 	 */
 	API.prototype.getAuthToken  = function(){
 		return this.deviceInterface().getAuthToken();
+	};
+
+	/**
+	 * Загрузка фотографии через native приложение
+	 * @param options
+	 */
+	API.prototype.uploadImage = function(options){
+
+		// вызов нативного приложения выбора файла
+		this.deviceInterface().uploadImage({
+			progress: api.utils.createGlobalCallback(options.progress),
+			done: api.utils.createGlobalCallback(options.done)
+		})
 	};
 
 
