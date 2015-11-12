@@ -36,6 +36,7 @@ PREGIEAPI.load("device").module("api", function(api) {
      * @alias PREGIEAPI.API
      * @type {Function}
      * @namespace PREGIEAPI.API
+     * @namespace PREGIEAPI.api
      * @constructor
      */
     var API = function(){
