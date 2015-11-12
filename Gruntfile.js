@@ -16,14 +16,8 @@ module.exports = function (grunt) {
 
     var globalConfig = {
         sourcePath: 'source',
-        _buildPath: 'build',
+        buildPath: 'build',
         projectName: false,
-
-        makeBuildPath: function(project){
-            globalConfig.projectName = project;
-            //globalConfig.buildPath = globalConfig._buildPath + '/' + project;
-            globalConfig.buildPath = globalConfig._buildPath;
-        },
 
         filesToBuild: []
     };
@@ -212,7 +206,6 @@ module.exports = function (grunt) {
         grunt.file.expand([
             globalConfig.sourcePath + '/*.js',
             globalConfig.sourcePath + '/plugins/*.js',
-            globalConfig.sourcePath + '/plugins/' + globalConfig.projectName + '/*.js',
             globalConfig.sourcePath + '/plugins/vendor/*.js'
         ]).forEach(function (file) {
             plugins.push('"' + file + '"\n');
@@ -248,31 +241,26 @@ module.exports = function (grunt) {
 
     // Error task - print some information
     grunt.registerTask('error', function(){
-        grunt.log.warn('Some error...');
+        grunt.log.warn('Error... Use "grunt api" task');
     });
 
 
     // Set build task. Main task
     grunt.registerTask('build', function() {
-        if( globalConfig.projectName ) {
-            globalConfig.filesToBuild = [
-                globalConfig.sourcePath + '/core.js',
-                globalConfig.sourcePath + '/plugins/*.js',
-                globalConfig.sourcePath + '/plugins/' + globalConfig.projectName + '/*.js',
-                globalConfig.sourcePath + '/plugins/vendor/*.js'
-            ];
+        globalConfig.filesToBuild = [
+            globalConfig.sourcePath + '/core.js',
+            globalConfig.sourcePath + '/plugins/*.js',
+            globalConfig.sourcePath + '/plugins/vendor/*.js'
+        ];
 
-            grunt.task.run([
-                'clean:dist',
-                'concat:pregieapi',
-                'closureCompiler',
-                'clean:pregieapitmp',
-                'usebanner:dist',
-                'create-loader'
-            ]);
-        } else {
-            grunt.task.run('error');
-        }
+        grunt.task.run([
+            'clean:dist',
+            'concat:pregieapi',
+            'closureCompiler',
+            'clean:pregieapitmp',
+            'usebanner:dist',
+            'create-loader'
+        ]);
 
     });
 
@@ -282,15 +270,10 @@ module.exports = function (grunt) {
 
 
     // Task for Pregie
-    grunt.registerTask('pregie', function(){
-        globalConfig.makeBuildPath('pregie');
-
+    grunt.registerTask('api', function(){
         grunt.task.run([
             'build'
         ]);
     });
-
-    // Task to build for all project
-    grunt.registerTask('all', ['bb', 'gb', 'spec']);
 
 };

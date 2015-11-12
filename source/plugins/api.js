@@ -25,6 +25,11 @@ PREGIEAPI.load("device").module("api", function(api) {
      */
     INTERFACE.prototype.showToast = function(){ throw new Error("MOCK INTERFACE - showToast()"); };
 
+	/**
+	 * Описание методов публичного API
+	 */
+	INTERFACE.prototype.getAuthToken  = function(){ return 'test-token'; };
+
 
     /**
      * Глобальный API для всех приложений
@@ -65,6 +70,14 @@ PREGIEAPI.load("device").module("api", function(api) {
     API.prototype.showToast = function(message){
         this.deviceInterface().showToast(message);
     };
+
+	/**
+	 * Получить токен авторизация с приложения Pregie
+	 * @return {*}
+	 */
+	API.prototype.getAuthToken  = function(){
+		return this.deviceInterface().getAuthToken();
+	};
 
 
     return this.publicateAPI("API", new API());

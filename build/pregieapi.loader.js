@@ -1,9 +1,9 @@
 (function (){
 
             var plugins = ["source/core.js"
+,"source/plugins/api.js"
 ,"source/plugins/date.js"
 ,"source/plugins/device.js"
-,"source/plugins/api.js"
 ];
 
             var findBaseUrl = function (self_name) {
