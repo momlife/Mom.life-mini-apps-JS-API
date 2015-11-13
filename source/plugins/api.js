@@ -37,6 +37,8 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 		/**
 		 * Для теста, потом удалить
 		 */
+        options = JSON.parse(options);
+
 		var progress = 0;
 		var s_id = setInterval(function(){
 			window[options.progress]({status: 200, progress: ++progress});
@@ -108,12 +110,13 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 	 * @param options
 	 */
 	API.prototype.uploadImage = function(options){
-
 		// вызов нативного приложения выбора файла
-		this.deviceInterface().uploadImage({
-			progress: api.utils.createGlobalCallback(options.progress),
-			done: api.utils.createGlobalCallback(options.done)
-		})
+		this.deviceInterface().uploadImage(
+            JSON.stringify({
+			    progress: api.utils.createGlobalCallback(options.progress),
+			    done: api.utils.createGlobalCallback(options.done)
+		    })
+        )
 	};
 
 
