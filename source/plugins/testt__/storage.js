@@ -135,14 +135,12 @@ BBAPI.load("utils", "array", "random", "hash").module("storage", function(api) {
         storage.supportLocalStorage = (function(){
             var support = false;
 
-            if(typeof window.localStorage != 'undefined'){
-                try {
-                    var key = "bbStoragePossible";
-                    localStorage.setItem(key, 1);
-                    support = localStorage.getItem(key) == "1";
-                    localStorage.removeItem(key);
-                } catch(e){}
-            }
+            try {
+                var key = "bbStoragePossible";
+                localStorage.setItem(key, 1);
+                support = localStorage.getItem(key) == "1";
+                localStorage.removeItem(key);
+            } catch(e){}
 
             return support;
         })();
