@@ -110,11 +110,28 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 	 * @param options
 	 */
 	API.prototype.uploadImage = function(options){
+        var _progress = api.utils.createGlobalCallback(options.progress);
+        var _done = api.utils.createGlobalCallback(done);
+
+        /**
+         * Функция, вызываемая после успешного завершения загрузки картинки
+         * @param data
+         */
+        function done(data){
+            // после успешного получения картинки удаляем с global scope созданные глобальные функции
+            [_progress, _done].forEach(function(callback){
+                api.utils.removeGlobalCallback(callback);
+            });
+
+            // и вызываем ранее переданую функцию
+            options.done && options.done(data);
+        }
+
 		// вызов нативного приложения выбора файла
 		this.deviceInterface().uploadImage(
             JSON.stringify({
-			    progress: api.utils.createGlobalCallback(options.progress),
-			    done: api.utils.createGlobalCallback(options.done)
+			    progress: _progress,
+			    done: _done
 		    })
         )
 	};
