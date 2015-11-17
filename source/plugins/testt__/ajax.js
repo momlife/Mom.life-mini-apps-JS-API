@@ -1,4 +1,4 @@
-BBAPI.load("event", "random", "browser", "utils", "array").module("ajax", function (api) {
+PREGIEAPI.load("random", "browser", "utils", "array").module("ajax", function (api) {
 
     var win = window, self = this;
 
@@ -11,54 +11,46 @@ BBAPI.load("event", "random", "browser", "utils", "array").module("ajax", functi
      xmlhttp.send(JSON.stringify({name:"John Rambo", time:"2pm"}));
      *
      *
-     * @return {Ajax}
-     * @2
+     *
+     *
+     return new Promise(function(resolve, reject) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+
+    xhr.onload = function() {
+      if (this.status == 200) {
+        resolve(this.response);
+      } else {
+        var error = new Error(this.statusText);
+        error.code = this.status;
+        reject(error);
+      }
+    };
+
+    xhr.onerror = function() {
+      reject(new Error("Network Error"));
+    };
+
+    xhr.send();
+  });
+
      * @constructor
      */
     var AJAX = function () {
         var url, callback, fail, method = "GET", data = {}, content_type = "application/x-www-form-urlencoded";
 
         /**
-         * @ap
-         * @param data
-         * @return {*}
-         */
-        var parseXML = function( data ) {
-            var xml, tmp;
-            if ( !data || typeof data !== "string" ) {
-                return null;
-            }
-            try {
-                if ( window.DOMParser ) { // Standard
-                    tmp = new DOMParser();
-                    xml = tmp.parseFromString( data, "text/xml" );
-                } else { // IE
-                    xml = new ActiveXObject( "Microsoft.XMLDOM" );
-                    xml.async = "false";
-                    xml.loadXML( data );
-                }
-            } catch( e ) {
-                xml = undefined;
-            }
-
-            return xml;
-        };
-
-        /**
-         *
-         * @pa 1
+         * Функция helper - hash -> array
+         * @param hash
          * @return {Array}
          */
         var hash2array = function (hash) {
             var a = [];
             for(var k in hash) {
-	            if(api.utils.isArray(hash[k])){
-		            api.array(hash[k]).forEach(function(e){
-			            a.push(encodeURIComponent(k) + "=" + encodeURIComponent(e));
-		            })
-	            } else {
-		            a.push(encodeURIComponent(k) + "=" + encodeURIComponent(hash[k]));
-	            }
+                if(hash.hasOwnProperty(k)) {
+                    a.push(encodeURIComponent(k) + "=" + encodeURIComponent(hash[k]));
+                }
             }
             return a;
         };
@@ -73,16 +65,12 @@ BBAPI.load("event", "random", "browser", "utils", "array").module("ajax", functi
                     return xhr.responseText;
                 },
 
-	            json: function(){
-		            return (JSON.parse || function (str) {
-			            if (str === "") str = '""';
-			            eval("var p=" + str + ";");
-			            return p;
-		            })(xhr.responseText);
-	            },
+                json: function(){
+                    return JSON.parse(xhr.responseText);
+                },
 
                 xml: function () {
-                    return xhr.responseXML || parseXML(xhr.responseText);
+                    return xhr.responseXML;
                 },
 
                 status: function () {
@@ -132,12 +120,12 @@ BBAPI.load("event", "random", "browser", "utils", "array").module("ajax", functi
 
             var i = 0;
             while(i++ < 10) {
-                var name = "BBJSONP_" + api.random.randomString();
+                var name = "PREGIEJSONP_" + api.random.randomString();
                 if(typeof(window[name]) == "undefined") {
                     return attachCallback(name);
                 }
             }
-            throw new Error("BBAPI.JSONP.createCallback: cannot create unique name for callback");
+            throw new Error("PREGIEAPI.JSONP.createCallback: cannot create unique name for callback");
         };
 
         var data2string = function (data, filter) {
@@ -236,5 +224,5 @@ BBAPI.load("event", "random", "browser", "utils", "array").module("ajax", functi
         return new Ajax();
     };
 
-	return this.publicateAPI("ajax", AJAX);
+    return this.publicateAPI("ajax", AJAX);
 });
