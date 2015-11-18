@@ -4,8 +4,6 @@
 ,"source/plugins/api.js"
 ,"source/plugins/date.js"
 ,"source/plugins/device.js"
-,"source/plugins/random.js"
-,"source/plugins/utils.js"
 ];
 
             var findBaseUrl = function (self_name) {
