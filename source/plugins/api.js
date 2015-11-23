@@ -18,12 +18,16 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
     /**
      * Описание методов публичного API
      */
-    INTERFACE.prototype.getCurrentUserId = function(){ throw new Error("MOCK INTERFACE - getCurrentUserId()"); };
+    INTERFACE.prototype.getCurrentUserId = function(){
+        return '12345';
+    };
 
     /**
      * Описание методов публичного API
      */
-    INTERFACE.prototype.showToast = function(){ throw new Error("MOCK INTERFACE - showToast()"); };
+    INTERFACE.prototype.showToast = function(message){
+        alert(message);
+    };
 
 	/**
 	 * Описание методов публичного API
@@ -34,9 +38,7 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 	 * Описание методов публичного API
 	 */
 	INTERFACE.prototype.uploadImage = function(options){
-		/**
-		 * Для теста, потом удалить
-		 */
+
         options = JSON.parse(options);
 
 		var progress = 0;
@@ -49,10 +51,6 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 				window[options.done]({status: 200, url: 'https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'});
 			}
 		}, 1000);
-
-		/**
-		 * Для теста, потом удалить
-		 */
 	};
 
 
