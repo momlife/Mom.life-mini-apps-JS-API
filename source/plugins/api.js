@@ -32,7 +32,8 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 	/**
 	 * Описание методов публичного API
 	 */
-	INTERFACE.prototype.getAuthToken = function(){ return 'test-token'; };
+	INTERFACE.prototype.getAuthToken = function(){ return 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmlnX2lhdCI6MTQ0ODI4NzczMCwidXNlc' +
+		'm5hbWUiOiJhZG1pbiIsInVzZXJfaWQiOjEsImVtYWlsIjoiYWRtaW5AYXNkLnJ1IiwiZXhwIjoxNDQ5NDk3MzMwfQ.mPVseayRBHYQmyj1HTC5c2HTHxzS2WGv1SvhKOAeU3o'; };
 
 	/**
 	 * Описание методов публичного API
