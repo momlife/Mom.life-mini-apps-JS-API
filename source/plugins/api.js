@@ -44,9 +44,9 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 
 		var progress = 0;
 		var s_id = setInterval(function(){
-			window[options.progress]({status: 200, progress: ++progress});
+			window[options.progress]({status: 200, progress: (progress+=10)});
 
-			if(progress == 10){
+			if(progress == 100){
 				clearInterval(s_id);
 
 				window[options.done]({status: 200, url: 'https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'});
@@ -82,6 +82,7 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 
     /**
      * Получить id текущего пользователя
+     * @example PREGIEAPI.API.getCurrentUserId();
      * @return {*}
      */
     API.prototype.getCurrentUserId = function(){
@@ -91,6 +92,8 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
     /**
      * Вывести сообщение в native приложении
      * @param message
+     * @example PREGIEAPI.API.showToast('my-message');
+     *
      */
     API.prototype.showToast = function(message){
         this.deviceInterface().showToast(message);
@@ -98,6 +101,10 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 
 	/**
 	 * Получить токен авторизация с native приложения
+	 * @example PREGIEAPI.API.getAuthToken();
+	 * @example PREGIEAPI.API.getAuthToken(function(token){
+	 *  // async
+	 * });
 	 * @return {*}
 	 */
 	API.prototype.getAuthToken  = function(){
