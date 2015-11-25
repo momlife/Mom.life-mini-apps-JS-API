@@ -54,6 +54,21 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 		}, 1000);
 	};
 
+	/**
+	 * Описание методов публичного API
+	 */
+	INTERFACE.prototype.makePayment = function(callback_name){
+
+		setTimeout(function(){
+			window[callback_name]({
+				status: 'OK',
+				id: '1234567',
+				someData: []
+			});
+
+		}, 1000);
+	};
+
 
     /**
      * Глобальный API для всех приложений
@@ -116,16 +131,16 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 	 * @param options
 	 */
 	API.prototype.uploadImage = function(options){
-        var _progress = api.utils.createGlobalCallback(options.progress);
-        var _done = api.utils.createGlobalCallback(done);
+        var progress = api.utils.createGlobalCallback(options.progress);
+        var done = api.utils.createGlobalCallback(doneCallback);
 
         /**
          * Функция, вызываемая после успешного завершения загрузки картинки
          * @param data
          */
-        function done(data){
+        function doneCallback(data){
             // после успешного получения картинки удаляем с global scope созданные глобальные функции
-            [_progress, _done].forEach(function(callback){
+            [progress, done].forEach(function(callback){
                 api.utils.removeGlobalCallback(callback);
             });
 
@@ -136,12 +151,35 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 		// вызов нативного приложения выбора файла
 		this.deviceInterface().uploadImage(
             JSON.stringify({
-			    progress: _progress,
-			    done: _done
+			    progress: progress,
+			    done: done
 		    })
         )
 	};
 
+	/**
+	 * Совершить платеж (отправить пользователя в приложение для соверешения оплаты)
+	 * @param callback
+	 */
+	API.prototype.makePayment = function(callback){
+		var callback_name = api.utils.createGlobalCallback(paymentCallback);
 
-    return this.publicateAPI("API", new API());
+		/**
+		 * Функция, вызываемая после прохождения оплаты либо ее отмены
+		 * @param data
+		 */
+		function paymentCallback(data){
+			// после завершения оплаты либо ее отметы удаляем с global scope созданную глобальную функцию
+			api.utils.removeGlobalCallback(callback_name);
+
+			// и вызываем ранее переданую функцию
+			callback && callback(data);
+		}
+
+		this.deviceInterface().makePayment(callback_name);
+	};
+
+
+
+	return this.publicateAPI("API", new API());
 });
