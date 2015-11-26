@@ -61,8 +61,9 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 
 		setTimeout(function(){
 			window[callback_name]({
-				status: 'OK',
+				statusText: 'OK',
 				id: '1234567',
+				transaction_id: '12345',
 				someData: []
 			});
 
@@ -159,6 +160,9 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 
 	/**
 	 * Совершить платеж (отправить пользователя в приложение для соверешения оплаты)
+	 * @example PREGIEAPI.API.makePayment(function(data){
+	 *   // data.transaction_id
+	 * });
 	 * @param callback
 	 */
 	API.prototype.makePayment = function(callback){
