@@ -38,7 +38,7 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 	/**
 	 * Описание методов публичного API
 	 */
-	INTERFACE.prototype.uploadImage = function(options){
+	INTERFACE.prototype.uploadImage = function(url, options){
 
         options = JSON.parse(options);
 
@@ -129,9 +129,10 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 
 	/**
 	 * Загрузка фотографии через native приложение
-	 * @param options
+	 * @param {String} url
+     * @param {Object} options
 	 */
-	API.prototype.uploadImage = function(options){
+	API.prototype.uploadImage = function(url, options){
         var progress = api.utils.createGlobalCallback(options.progress);
         var done = api.utils.createGlobalCallback(doneCallback);
 
@@ -151,6 +152,7 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 
 		// вызов нативного приложения выбора файла
 		this.deviceInterface().uploadImage(
+            url,
             JSON.stringify({
 			    progress: progress,
 			    done: done
