@@ -44,12 +44,12 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 
 		var progress = 0;
 		var s_id = setInterval(function(){
-			window[options.progress]({status: 200, progress: (progress+=10)});
+			window[options.progress]({progress: (progress+=10)});
 
 			if(progress == 100){
 				clearInterval(s_id);
 
-				window[options.done]({status: 200, url: 'https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'});
+				window[options.done]({url: 'https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png', name: 'some-name.png'});
 			}
 		}, 1000);
 
@@ -143,7 +143,7 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 	/**
 	 * Загрузка фотографии через native приложение
 	 * @param {String} url
-     * @param {Object} options
+     * @param {{preview: Function, progress: Function, done: Function, error: Function}} options
 	 */
 	API.prototype.uploadImage = function(url, options){
         var preview = api.utils.createGlobalCallback(options.preview);
