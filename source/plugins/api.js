@@ -1,4 +1,4 @@
-PREGIEAPI.load('device', 'utils').module('api', function(api) {
+PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Интерфейс, который реализует публичный API
@@ -76,7 +76,7 @@ PREGIEAPI.load('device', 'utils').module('api', function(api) {
 			window[callback_name]({
 				statusText: 'OK',
 				id: '1234567',
-				transaction_id: '12345',
+				transaction_id: api.random.randomNumber(),
 				someData: []
 			});
 

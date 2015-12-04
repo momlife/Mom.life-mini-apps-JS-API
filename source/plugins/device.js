@@ -9,8 +9,12 @@ PREGIEAPI.module("device", function(api) {
 
 
     /**
+     * Модуль определения ОС и версии.
      * @alias api.device
      * @namespace api.device
+     * @example
+     *  PREGIEAPI.device.os.android(); // true || false
+     *  PREGIEAPI.device.os.ios(); // true || false
      * @type {{platform: {name: string}, webview: Function, os: {version: Function, android: Function, ios: Function, ipad: Function, ipod: Function, iphone: Function}}}
      */
 	var Device = {
