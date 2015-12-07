@@ -83,6 +83,13 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 		}, 1000);
 	};
 
+    /**
+     * Описание методов публичного API
+     */
+    INTERFACE.prototype.getAppId = function(){
+        return '12345';
+    };
+
 
     /**
      * Глобальный API для всех приложений
@@ -211,6 +218,15 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
 		this.deviceInterface().makePayment(callback_name);
 	};
+
+    /**
+     * Метод получения ID приложения
+     * @example PREGIEAPI.API.getAppId();
+     * @return {String}
+     */
+    API.prototype.getAppId = function(){
+        return this.deviceInterface().getAppId();
+    };
 
 
 
