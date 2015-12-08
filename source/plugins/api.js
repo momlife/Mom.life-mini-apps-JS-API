@@ -50,7 +50,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 			if(progress == 100){
 				clearInterval(s_id);
 
-				window[options.done]({url: 'https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png', name: 'some-name.png'});
+				window[options.success]({name: 'some-name.png'});
 			}
 		}, 1000);
 
@@ -151,26 +151,26 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 	/**
 	 * Загрузка фотографии через native приложение
 	 * @param {String} url
-     * @param {{preview: Function, progress: Function, done: Function, error: Function}} options
+     * @param {{preview: Function, progress: Function, success: Function, error: Function}} options
 	 */
 	API.prototype.uploadImage = function(url, options){
         var preview = api.utils.createGlobalCallback(options.preview);
         var progress = api.utils.createGlobalCallback(options.progress);
-        var done = api.utils.createGlobalCallback(doneCallback);
+        var success = api.utils.createGlobalCallback(successCallback);
         var error = api.utils.createGlobalCallback(errorCallback);
 
         /**
          * Функция, вызываемая после успешного завершения загрузки картинки
          * @param data
          */
-        function doneCallback(data){
+        function successCallback(data){
             // после успешного получения картинки удаляем с global scope созданные глобальные функции
-            [preview, progress, done, error].forEach(function(callback){
+            [preview, progress, success, error].forEach(function(callback){
                 api.utils.removeGlobalCallback(callback);
             });
 
             // и вызываем ранее переданую функцию
-            options.done && options.done(data);
+            options.success && options.success(data);
         }
 
 
@@ -189,7 +189,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
             JSON.stringify({
                 preview: preview,
 			    progress: progress,
-			    done: done,
+                success: success,
                 error: error
 		    })
         )
