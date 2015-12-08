@@ -71,10 +71,12 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 	/**
 	 * Описание методов публичного API
 	 */
-	INTERFACE.prototype.makePayment = function(callback_name){
+	INTERFACE.prototype.makePayment = function(price, options){
+
+        options = JSON.parse(options);
 
 		setTimeout(function(){
-			window[callback_name]({
+			window[options.success]({
 				statusText: 'OK',
 				id: '1234567',
 				transaction_id: api.random.randomNumber(),
@@ -200,24 +202,50 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 	 * @example PREGIEAPI.API.makePayment(function(data){
 	 *   // data.transaction_id
 	 * });
-	 * @param callback
+	 * @param price
+     * @param {{success: Function, error: Function}} options
 	 */
-	API.prototype.makePayment = function(callback){
-		var callback_name = api.utils.createGlobalCallback(paymentCallback);
+	API.prototype.makePayment = function(price, options){
+        var success = api.utils.createGlobalCallback(successCallback);
+        var error = api.utils.createGlobalCallback(errorCallback);
 
-		/**
-		 * Функция, вызываемая после прохождения оплаты либо ее отмены
-		 * @param data
-		 */
-		function paymentCallback(data){
-			// после завершения оплаты либо ее отметы удаляем с global scope созданную глобальную функцию
-			api.utils.removeGlobalCallback(callback_name);
+        /**
+         * Функция, вызываемая после прохождения оплаты либо ее отмены
+         * @param data
+         */
+        function successCallback(data){
+            // после завершения оплаты либо ее отметы удаляем с global scope созданные глобальные функции
+            [success, error].forEach(function(callback){
+                api.utils.removeGlobalCallback(callback);
+            });
 
-			// и вызываем ранее переданую функцию
-			callback && callback(data);
-		}
+            // и вызываем ранее переданую функцию
+            options.success && options.success(data);
+        }
 
-		this.deviceInterface().makePayment(callback_name);
+
+        /**
+         * Функция, вызываемая в случае возникновения ошибок при загрузке
+         * @param error
+         */
+        function errorCallback(error){
+            // после завершения оплаты либо ее отметы удаляем с global scope созданные глобальные функции
+            [success, error].forEach(function(callback){
+                api.utils.removeGlobalCallback(callback);
+            });
+
+            // вызываем ранее переданую функцию
+            options.error && options.error(error);
+        }
+
+
+		this.deviceInterface().makePayment(
+            price,
+            JSON.stringify({
+                success: success,
+                error: error
+            })
+        );
 	};
 
     /**
