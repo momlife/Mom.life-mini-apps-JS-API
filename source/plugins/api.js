@@ -39,7 +39,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 	/**
 	 * Описание методов публичного API
 	 */
-	INTERFACE.prototype.uploadImage = function(url, options){
+	INTERFACE.prototype.upload = function(url, options){
 
         options = JSON.parse(options);
 
@@ -77,10 +77,8 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
 		setTimeout(function(){
 			window[options.success]({
-				statusText: 'OK',
-				id: '1234567',
 				transaction_id: api.random.randomNumber(),
-				someData: []
+                additionalDate: {}
 			});
 
 		}, 1000);
@@ -155,7 +153,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 	 * @param {String} url
      * @param {{preview: Function, progress: Function, success: Function, error: Function}} options
 	 */
-	API.prototype.uploadImage = function(url, options){
+	API.prototype.upload = function(url, options){
         var preview = api.utils.createGlobalCallback(options.preview);
         var progress = api.utils.createGlobalCallback(options.progress);
         var success = api.utils.createGlobalCallback(successCallback);
@@ -186,7 +184,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
         }
 
 		// вызов нативного приложения выбора файла
-		this.deviceInterface().uploadImage(
+		this.deviceInterface().upload(
             url,
             JSON.stringify({
                 preview: preview,
