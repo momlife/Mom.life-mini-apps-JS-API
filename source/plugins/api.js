@@ -82,6 +82,14 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 			});
 
 		}, 1000);
+
+        //setTimeout(function(){
+        //    window[options.error]({
+        //        status: 100,
+        //        statusText: 'Some error'
+        //    });
+        //
+        //}, 1000);
 	};
 
     /**
