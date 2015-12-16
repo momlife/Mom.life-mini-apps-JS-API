@@ -1,4 +1,14 @@
 PREGIEAPI.module("date", function () {
+
+    var assign = function(dst, src){
+        for (var key in src) {
+            if (src.hasOwnProperty(key)){
+                dst[key] = src[key];
+            }
+        }
+
+        return dst;
+    };
 	/**
 	 * Модуль работы со временем
 	 * @namespace api.date
@@ -34,6 +44,38 @@ PREGIEAPI.module("date", function () {
 
     date.unixtime = function (d) {
         return ~~((d || new Date()).getTime() / 1000);
+    };
+
+    /**
+     * Метод toLocaleString() возвращает строку с языко-зависимым представлением даты.
+     * @param unixtime
+     * @param locales
+     * @param options
+     * @example
+     *  api.date.toLocaleString(1450263128); // "16 дек. 2015 г."
+     *  api.date.toLocaleString(1450263128, "en-US", {
+          era: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          weekday: 'long',
+          timezone: 'UTC',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric'
+        }); // "Wednesday, December 16, 2015 Anno Domini, 11:52:08 AM"
+     * @return {string}
+     */
+    date.toLocaleString = function(unixtime, locales, options){
+        var d = new Date((unixtime || date.unixtime()) * 1000);
+
+         options = assign({
+             year: 'numeric',
+             month: 'short',
+             day: 'numeric'
+        }, options || {});
+
+        return d.toLocaleString(locales || "ru", options);
     };
 
 	/**
