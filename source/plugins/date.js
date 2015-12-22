@@ -85,7 +85,10 @@ PREGIEAPI.module("date", function () {
 	 */
 	date.H_M = function(unixtime){
 		var d = new Date(unixtime * 1000);
-		return d.getHours() + ':' + d.getMinutes();
+		var hours = d.getHours() <  10 ? "0" + d.getHours() : d.getHours();
+		var minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
+		//var seconds = d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds();
+		return (hours + ":" + minutes /*+ ":" + seconds*/);
 	};
 
 	return this.publicateAPI("date", date);
