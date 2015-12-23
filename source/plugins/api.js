@@ -50,7 +50,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 			if(progress == 100){
 				clearInterval(s_id);
 
-				window[options.success]({name: 'some-name.png'});
+				window[options.success]({name: '2015:12:23:0a8e474b-d100-42b5-96bf-04fc96a9d27a.jpg'});
 			}
 		}, 1000);
 
