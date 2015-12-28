@@ -1,4 +1,4 @@
-window['PREGIEAPI'] || (window['PREGIEAPI'] = function (PREGIEAPI) {
+window['PREGGIEAPI'] || (window['PREGGIEAPI'] = function (PREGGIEAPI) {
 	var modules = {},
 		paths = {},
 		packages = {},
@@ -43,7 +43,7 @@ window['PREGIEAPI'] || (window['PREGIEAPI'] = function (PREGIEAPI) {
 	};
 
 	var registerModule = function (name, f, api) {
-		modules[name] || (modules[name] = f.call(window[PREGIEAPI], api || undefined));
+		modules[name] || (modules[name] = f.call(window[PREGGIEAPI], api || undefined));
 		runHooks();
 	};
 
@@ -74,7 +74,7 @@ window['PREGIEAPI'] || (window['PREGIEAPI'] = function (PREGIEAPI) {
 	var Code = function (api) {
 		return {
 			run: function (f) {
-				addHook(function(api){ f.call(window[PREGIEAPI], api) }, api);
+				addHook(function(api){ f.call(window[PREGGIEAPI], api) }, api);
 			},
 
 			module: function (name, f) {
@@ -116,7 +116,7 @@ window['PREGIEAPI'] || (window['PREGIEAPI'] = function (PREGIEAPI) {
 //					return paths[i] + "/" + module.substr(i.length).split(".").join("/") + ".js";
 //				}
 //			}
-			return (findBaseUrl("/pregieapi.") + "/plugins/" + module.split(".").join("/") + ".js")
+			return (findBaseUrl("/preggieapi.") + "/plugins/" + module.split(".").join("/") + ".js")
 		})().replace(/([A-Z])/g, function (m) { return "-" + m.toLowerCase(); }).replace(/\/-/g, "/");
 	};
 	
@@ -151,7 +151,7 @@ window['PREGIEAPI'] || (window['PREGIEAPI'] = function (PREGIEAPI) {
 		return l;
 	};
 
-	paths["pregieapi."] = findBaseUrl("/pregieapi.") + "/plugins";
+	paths["preggieapi."] = findBaseUrl("/preggieapi.") + "/plugins";
 
 	var merge = function (dst, src) {
 		for(var i in src) {
@@ -174,8 +174,8 @@ window['PREGIEAPI'] || (window['PREGIEAPI'] = function (PREGIEAPI) {
 		},
 
         publicateAPI: function(name, exports){
-            if(typeof(window[PREGIEAPI][name]) == "undefined") {
-                window[PREGIEAPI][name] = exports;
+            if(typeof(window[PREGGIEAPI][name]) == "undefined") {
+                window[PREGGIEAPI][name] = exports;
             }
             return exports;
         },
@@ -200,4 +200,4 @@ window['PREGIEAPI'] || (window['PREGIEAPI'] = function (PREGIEAPI) {
 		}
 	};
 
-}('PREGIEAPI'));
+}('PREGGIEAPI'));

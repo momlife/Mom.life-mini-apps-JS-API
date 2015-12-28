@@ -20,7 +20,7 @@
             };
 
 
-            var base = findBaseUrl('pregieapi.loader.js').replace(/build.*/, '');
+            var base = findBaseUrl('preggieapi.loader.js').replace(/build.*/, '');
 
             for(var i=0; i<plugins.length; i++){
                 document.write('<script src="' + base + plugins[i] + '"></scr' + 'ipt>');

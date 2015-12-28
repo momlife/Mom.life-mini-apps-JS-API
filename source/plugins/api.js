@@ -1,4 +1,4 @@
-PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
+PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Интерфейс, который реализует публичный API
@@ -52,7 +52,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
 				window[options.success]({name: '2015:12:23:0820a982-8837-4f26-b8e0-cea32c121c6c.jpg'});
 			}
-		}, 1000);
+		}, 500);
 
         window[options.preview]('iVBORw0KGgoAAAANSUhEUgAAADEAAAA0CAIAAACsM0f4AAADPklEQVR42u2X30tTYRjHj+gM' +
             'ttqPznYwu9CbKUxCyh9sI6YLERkuJdRQKoKg/gDvu+jeP6Cgq0ohJLULiVkXDpRASwbbErdgY8yBUslsQzfDHjzx8uz17OxsHLcZ52EX73nPe57z2fN+n+' +
@@ -102,10 +102,10 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Глобальный API для всех приложений
-     * @alias PREGIEAPI.API
+     * @alias PREGGIEAPI.API
      * @type {Function}
-     * @namespace PREGIEAPI.API
-     * @namespace PREGIEAPI.api
+     * @namespace PREGGIEAPI.API
+     * @namespace PREGGIEAPI.api
      * @constructor
      */
     var API = function(){
@@ -127,7 +127,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Получить id текущего пользователя
-     * @example PREGIEAPI.API.getCurrentUserId();
+     * @example PREGGIEAPI.API.getCurrentUserId();
      * @return {*}
      */
     API.prototype.getCurrentUserId = function(){
@@ -137,7 +137,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * Вывести сообщение в native приложении
      * @param message
-     * @example PREGIEAPI.API.showToast('my-message');
+     * @example PREGGIEAPI.API.showToast('my-message');
      *
      */
     API.prototype.showToast = function(message){
@@ -146,8 +146,8 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
 	/**
 	 * Получить токен авторизация с native приложения
-	 * @example PREGIEAPI.API.getAuthToken();
-	 * @example PREGIEAPI.API.getAuthToken(function(token){
+	 * @example PREGGIEAPI.API.getAuthToken();
+	 * @example PREGGIEAPI.API.getAuthToken(function(token){
 	 *  // async
 	 * });
 	 * @return {*}
@@ -205,7 +205,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
 	/**
 	 * Совершить платеж (отправить пользователя в приложение для соверешения оплаты)
-	 * @example PREGIEAPI.API.makePayment(function(data){
+	 * @example PREGGIEAPI.API.makePayment(function(data){
 	 *   // data.transaction_id
 	 * });
 	 * @param price
@@ -256,7 +256,7 @@ PREGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Метод получения ID приложения
-     * @example PREGIEAPI.API.getAppId();
+     * @example PREGGIEAPI.API.getAppId();
      * @return {String}
      */
     API.prototype.getAppId = function(){

@@ -33,7 +33,7 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 //files: ['<%= yeoman.dist %>/js/*.js'],
-                files: ['<%= yeoman.sourcePREGIEAPIPath %>/**/*.js'],
+                files: ['<%= yeoman.sourcePREGGIEAPIPath %>/**/*.js'],
                 tasks: ['build']
             },
             gruntfile: {
@@ -42,9 +42,9 @@ module.exports = function (grunt) {
         },
 
         concat: {
-            pregieapi:{
+            preggieapi:{
                 src: '<%= globalConfig.filesToBuild %>',
-                dest: '<%= globalConfig.buildPath %>/pregieapi.min.tmp.js'
+                dest: '<%= globalConfig.buildPath %>/preggieapi.min.tmp.js'
             }
         },
 
@@ -57,7 +57,7 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                '<%= yeoman.pregieapi %>'
+                '<%= yeoman.preggieapi %>'
             ]
         },
 
@@ -73,11 +73,11 @@ module.exports = function (grunt) {
                 ]
             },
 
-            pregieapitmp: {
+            preggieapitmp: {
                 files: [
                     {
                         src: [
-                            '<%= globalConfig.buildPath %>/pregieapi.min.tmp.js'
+                            '<%= globalConfig.buildPath %>/preggieapi.min.tmp.js'
                         ]
                     }
                 ]
@@ -151,10 +151,10 @@ module.exports = function (grunt) {
             targetName: {
                 // [OPTIONAL] Target files to compile. Can be a string, an array of strings
                 // or grunt file syntax (<config:...>, *)
-                src: '<%= globalConfig.buildPath %>/pregieapi.min.tmp.js',
+                src: '<%= globalConfig.buildPath %>/preggieapi.min.tmp.js',
 
                 // [OPTIONAL] set an output file
-                dest: '<%= globalConfig.buildPath %>/pregieapi.min.js'
+                dest: '<%= globalConfig.buildPath %>/preggieapi.min.js'
             }
         },
 
@@ -165,7 +165,7 @@ module.exports = function (grunt) {
                     banner: '/*! <%= pkg.name %> | <%= grunt.template.today("yyyy-mm-dd") %> */'
                 },
                 files: {
-                    src: [ '<%= globalConfig.buildPath %>/pregieapi.min.js' ]
+                    src: [ '<%= globalConfig.buildPath %>/preggieapi.min.js' ]
                 }
             }
         },
@@ -197,8 +197,8 @@ module.exports = function (grunt) {
         ]);
     });
 
-    // Task which create pregieapi.loader.js for all projects
-    grunt.registerTask("create-loader", "Create pregieapi.loader.js for each project", function() {
+    // Task which create preggieapi.loader.js for all projects
+    grunt.registerTask("create-loader", "Create preggieapi.loader.js for each project", function() {
 
         var plugins = [];
 
@@ -228,14 +228,14 @@ module.exports = function (grunt) {
             };
 
 
-            var base = findBaseUrl('pregieapi.loader.js').replace(/build.*/, '');
+            var base = findBaseUrl('preggieapi.loader.js').replace(/build.*/, '');
 
             for(var i=0; i<plugins.length; i++){
                 document.write('<script src="' + base + plugins[i] + '"></scr' + 'ipt>');
             }
         };
 
-        grunt.file.write(globalConfig.buildPath + '/pregieapi.loader.js', '(' + content.toString().replace("'%plugins%'", plugins.join(',')) + ')();');
+        grunt.file.write(globalConfig.buildPath + '/preggieapi.loader.js', '(' + content.toString().replace("'%plugins%'", plugins.join(',')) + ')();');
     });
 
 
@@ -255,9 +255,9 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:dist',
-            'concat:pregieapi',
+            'concat:preggieapi',
             'closureCompiler',
-            'clean:pregieapitmp',
+            'clean:preggieapitmp',
             'usebanner:dist',
             'create-loader'
         ]);
@@ -269,7 +269,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['error']);
 
 
-    // Task for Pregie
+    // Task for Preggie
     grunt.registerTask('api', function(){
         grunt.task.run([
             'build'

@@ -1,6 +1,6 @@
 {
-  "name": "PREGIE_JSAPI",
-  "version": "0.0.1",
+  "name": "PREGGIE_JSAPI",
+  "version": "0.1.10",
   "author": "Alexander Usolcev <alexander.usolcev@gmail.com>",
   "devDependencies": {
     "grunt": "~0.4.5",

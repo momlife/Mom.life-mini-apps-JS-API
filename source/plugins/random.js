@@ -1,4 +1,4 @@
-PREGIEAPI.module("random", function () {
+PREGGIEAPI.module("random", function () {
 	
 	var randomString = function (length, chars) {
 		var ch = chars || "ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz_0123456789";

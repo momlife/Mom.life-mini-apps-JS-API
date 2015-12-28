@@ -1,4 +1,4 @@
-PREGIEAPI.load("random").module("utils", function (api) {
+PREGGIEAPI.load("random").module("utils", function (api) {
     var win = window, self = this;
 
 	/**
@@ -53,8 +53,8 @@ PREGIEAPI.load("random").module("utils", function (api) {
          * @param {Number} number
          * @param {Array} titles
          * @param {Boolean} with_number
-         * @example PREGIEAPI.utils.plural(2, ["секунда", "секунды", "секунд"]); // "секунды"
-         * @example PREGIEAPI.utils.plural(5, ["секунда", "секунды", "секунд"], true); // "5 секунд"
+         * @example PREGGIEAPI.utils.plural(2, ["секунда", "секунды", "секунд"]); // "секунды"
+         * @example PREGGIEAPI.utils.plural(5, ["секунда", "секунды", "секунд"], true); // "5 секунд"
          * @return {*}
          */
         plural: function(number, titles, with_number){

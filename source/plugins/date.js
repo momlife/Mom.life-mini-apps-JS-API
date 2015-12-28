@@ -1,4 +1,4 @@
-PREGIEAPI.module("date", function () {
+PREGGIEAPI.module("date", function () {
 
     var assign = function(dst, src){
         for (var key in src) {
