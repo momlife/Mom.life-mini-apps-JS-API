@@ -47,6 +47,12 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 		var s_id = setInterval(function(){
 			window[options.progress]({progress: (progress+=10)});
 
+            //if(progress == 50){
+            //    clearInterval(s_id);
+            //
+            //    window[options.error]({status: 101, statusText: 'Upload error'});
+            //}
+
 			if(progress == 100){
 				clearInterval(s_id);
 
@@ -66,7 +72,16 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
             'nn5oSG06JVpXf5grT/8EUi30Ph3M62o6Om1Ky6QyZtrZ88MO3bbZ+lm2oPFNtbX13dy8/A0GSN89LZNJo9E7n7TJznEMmOEo5rpGfqQhcAY0PDj6oCias8f' +
             'InHXNu9KQwCdhfKV/ntwyR1acAAAAASUVORK5CYII='
         );
+
+        return s_id;
 	};
+
+    /**
+     * Описание методов публичного API
+     */
+    INTERFACE.prototype.cancelUpload = function(uploadId){
+        clearInterval(uploadId);
+    };
 
 	/**
 	 * Описание методов публичного API
@@ -192,7 +207,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
         }
 
 		// вызов нативного приложения выбора файла
-		this.deviceInterface().upload(
+		return this.deviceInterface().upload(
             url,
             JSON.stringify({
                 preview: preview,
@@ -202,6 +217,16 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 		    })
         )
 	};
+
+    /**
+     * Метод отмены загрузки через native приложение
+     * @param uploadId
+     * @example PREGGIEAPI.API.cancelUpload('uploadId-1234');
+     */
+    API.prototype.cancelUpload = function(uploadId){
+        // вызов нативного приложения отмены загрузки файла
+        this.deviceInterface().cancelUpload(uploadId);
+    };
 
 	/**
 	 * Совершить платеж (отправить пользователя в приложение для соверешения оплаты)
