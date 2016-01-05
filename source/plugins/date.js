@@ -69,11 +69,11 @@ PREGGIEAPI.module("date", function () {
     date.toLocaleString = function(unixtime, locales, options){
         var d = new Date((unixtime || date.unixtime()) * 1000);
 
-         options = assign({
-             year: 'numeric',
-             month: 'short',
-             day: 'numeric'
-        }, options || {});
+        // options = assign({
+        //     year: 'numeric',
+        //     month: 'short',
+        //     day: 'numeric'
+        //}, options || {});
 
         return d.toLocaleString(locales || "ru", options);
     };
