@@ -32,8 +32,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 	/**
 	 * Описание методов публичного API
 	 */
-	INTERFACE.prototype.getAuthToken = function(){ return 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlc' +
-		'l9pZCI6MSwiZW1haWwiOiJhc2RhZEBhc2QucnUiLCJvcmlnX2lhdCI6MTQ1MDc5MTIxMCwiZXhwIjoxNDU5NDMxMjEwfQ.48fBPLzWvucfasE1zczgATLTa1JNPTO7TB4X3vlJ5rI' };
+
+	INTERFACE.prototype.getAuthToken = function(){ return 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjA3MjM3NDAsIm9yaWdfaWF0IjoxNDUyMDgzNz' +
+        'QwLCJlbWFpbCI6ImFzZGFkQGFzZC5ydSIsInVzZXJuYW1lIjoiYWRtaW4iLCJ1c2VyX2lkIjoxfQ.g7QP_zYP_OvdBJzvyAlDTQ2ydu0WEXMx2UFE3yON9a4' };
 
 
 	/**
