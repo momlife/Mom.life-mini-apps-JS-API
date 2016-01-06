@@ -289,6 +289,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     };
 
 
+    API.prototype.testData = function(){
+        alert(123);
+    };
 
 	return this.publicateAPI("API", new API());
 });
