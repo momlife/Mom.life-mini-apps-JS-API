@@ -33,8 +33,15 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 	 * Описание методов публичного API
 	 */
 
-	INTERFACE.prototype.getAuthToken = function(){ return 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjA3MjM3NDAsIm9yaWdfaWF0IjoxNDUyMDgzNz' +
-        'QwLCJlbWFpbCI6ImFzZGFkQGFzZC5ydSIsInVzZXJuYW1lIjoiYWRtaW4iLCJ1c2VyX2lkIjoxfQ.g7QP_zYP_OvdBJzvyAlDTQ2ydu0WEXMx2UFE3yON9a4' };
+	INTERFACE.prototype.getAuthToken = function(options){
+
+        options = JSON.parse(options);
+
+        var token = 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjA3MjM3NDAsIm9yaWdfaWF0IjoxNDUyMDgzNz' +
+            'QwLCJlbWFpbCI6ImFzZGFkQGFzZC5ydSIsInVzZXJuYW1lIjoiYWRtaW4iLCJ1c2VyX2lkIjoxfQ.g7QP_zYP_OvdBJzvyAlDTQ2ydu0WEXMx2UFE3yON9a4';
+
+        window[options.success]({token: token});
+    };
 
 
 	/**
@@ -119,9 +126,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * Глобальный API для всех приложений
      * @alias PREGGIEAPI.API
-     * @type {Function}
+     * @alias api.api
      * @namespace PREGGIEAPI.API
-     * @namespace PREGGIEAPI.api
+     * @namespace api.api
      * @constructor
      */
     var API = function(){
@@ -131,6 +138,11 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
         this.deviceInterface = function(){
             return api.device.os.android() ? window.Android : (api.device.os.ios() ? window.iOS : new INTERFACE().deviceInterface());
         };
+
+        Object.defineProperty(this, '_token', {
+            writable: true,
+            value: null
+        });
     };
 
     /**
@@ -162,19 +174,38 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
 	/**
 	 * Получить токен авторизация с native приложения
+     * @param {Function} callback - callback функция, вызываемая в случае получения токена
 	 * @example PREGGIEAPI.API.getAuthToken();
 	 * @example PREGGIEAPI.API.getAuthToken(function(token){
 	 *  // async
 	 * });
 	 * @return {*}
 	 */
-	API.prototype.getAuthToken  = function(){
-		return this.deviceInterface().getAuthToken();
+	API.prototype.getAuthToken = function(callback){
+        var self = this;
+        var success = api.utils.createGlobalCallback(successCallback);
+        //var error = api.utils.createGlobalCallback(errorCallback);
+
+        function successCallback(data){
+            // после успешного получения токена удаляем с global scope созданные глобальные функции
+            [success].forEach(function(callback){
+                api.utils.removeGlobalCallback(callback);
+            });
+
+            // и вызываем ранее переданную функцию
+            callback && callback(self._token = data.token, data);
+        }
+
+		return callback ? this.deviceInterface().getAuthToken(
+            JSON.stringify({
+                success: success
+            })
+        ) : self._token;
 	};
 
 	/**
-	 * Загрузка фотографии через native приложение
-	 * @param {String} url
+	 * Загрузка изображения через native приложение
+	 * @param {String} url - url сервера для загрузки изображения
      * @param {{preview: Function, progress: Function, success: Function, error: Function}} options
 	 */
 	API.prototype.upload = function(url, options){

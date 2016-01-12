@@ -9,8 +9,8 @@ PREGGIEAPI.load("random").module("utils", function (api) {
         /**
          * Function witch create in glogal (window) scope public function
          * @param {Function} f - function callback (self_callback)
-         * @param {Number} script_ttl - time to waiting create and call callback
-         * @param {Function} f_timeout - function callback witch will be call if self_callback not called
+         * @param {Number} [script_ttl] - time to waiting create and call callback
+         * @param {Function} [f_timeout] - function callback witch will be call if self_callback not called
          */
         createGlobalCallback: function (f, script_ttl, f_timeout) {
             var attachCallback = function (name) {
