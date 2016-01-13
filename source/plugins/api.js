@@ -41,6 +41,8 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
             'QwLCJlbWFpbCI6ImFzZGFkQGFzZC5ydSIsInVzZXJuYW1lIjoiYWRtaW4iLCJ1c2VyX2lkIjoxfQ.g7QP_zYP_OvdBJzvyAlDTQ2ydu0WEXMx2UFE3yON9a4';
 
         window[options.success]({token: token});
+
+        //window[options.error]({status: 101, statusText: 'getAuthToken error'});
     };
 
 
@@ -174,33 +176,62 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
 	/**
 	 * Получить токен авторизация с native приложения
-     * @param {Function} callback - callback функция, вызываемая в случае получения токена
+     * @param {{success: Function, error: Function}} options
 	 * @example PREGGIEAPI.API.getAuthToken();
-	 * @example PREGGIEAPI.API.getAuthToken(function(token){
-	 *  // async
-	 * });
+	 * @example PREGGIEAPI.API.getAuthToken({
+	 *  success: function(token){
+	 *      // async
+	 *  },
+	 *  error: function(error){
+	 *      // some-error
+	 *  }
+     * });
 	 * @return {*}
 	 */
-	API.prototype.getAuthToken = function(callback){
+	API.prototype.getAuthToken = function(options){
+
+        if(!options){
+            return this._token;
+        }
+
         var self = this;
         var success = api.utils.createGlobalCallback(successCallback);
-        //var error = api.utils.createGlobalCallback(errorCallback);
+        var error = api.utils.createGlobalCallback(errorCallback);
 
+        /**
+         * Функция, вызываемая в случае успешного получения токена
+         * @param data
+         */
         function successCallback(data){
             // после успешного получения токена удаляем с global scope созданные глобальные функции
-            [success].forEach(function(callback){
+            [success, error].forEach(function(callback){
                 api.utils.removeGlobalCallback(callback);
             });
 
             // и вызываем ранее переданную функцию
-            callback && callback(self._token = data.token, data);
+            options.success && options.success(self._token = data.token, data);
         }
 
-		return callback ? this.deviceInterface().getAuthToken(
+        /**
+         * Функция, вызываемая в случае возникновения ошибок при получении токена
+         * @param errorData
+         */
+        function errorCallback(errorData){
+            // при возникновении ошибки получения токена удаляем с global scope созданные глобальные функции
+            [success, error].forEach(function(callback){
+                api.utils.removeGlobalCallback(callback);
+            });
+
+            // вызываем ранее переданую функцию
+            options.error && options.error(errorData);
+        }
+
+		return this.deviceInterface().getAuthToken(
             JSON.stringify({
-                success: success
+                success: success,
+                error: error
             })
-        ) : self._token;
+        );
 	};
 
 	/**
@@ -231,11 +262,17 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
         /**
          * Функция, вызываемая в случае возникновения ошибок при загрузке
-         * @param error
+         * @param errorData
          */
-        function errorCallback(error){
+        function errorCallback(errorData){
+
+            // в случае ошибки получения картинки удаляем с global scope созданные глобальные функции
+            [preview, progress, success, error].forEach(function(callback){
+                api.utils.removeGlobalCallback(callback);
+            });
+
             // вызываем ранее переданую функцию
-            options.error && options.error(error);
+            options.error && options.error(errorData);
         }
 
 		// вызов нативного приложения выбора файла
@@ -289,16 +326,16 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
         /**
          * Функция, вызываемая в случае возникновения ошибок при загрузке
-         * @param error
+         * @param errorData
          */
-        function errorCallback(error){
+        function errorCallback(errorData){
             // после завершения оплаты либо ее отметы удаляем с global scope созданные глобальные функции
             [success, error].forEach(function(callback){
                 api.utils.removeGlobalCallback(callback);
             });
 
             // вызываем ранее переданую функцию
-            options.error && options.error(error);
+            options.error && options.error(errorData);
         }
 
 
