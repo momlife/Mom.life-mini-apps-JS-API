@@ -54,13 +54,23 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
         options = JSON.parse(options);
 
 		var progress = 0;
+        var code = Math.random() >= 0.5 ? 101 : 100;
+
+
+        //if(code == 100){
+        //    window[options.error]({status: code, statusText: 'User canceled'});
+        //    return;
+        //}
+
 		var s_id = setInterval(function(){
+
+
 			window[options.progress]({progress: (progress+=10)});
 
             //if(progress == 50){
             //    clearInterval(s_id);
             //
-            //    window[options.error]({status: 101, statusText: 'Upload error'});
+            //    window[options.error]({status: code, statusText: 'Upload error'});
             //}
 
 			if(progress == 100){
