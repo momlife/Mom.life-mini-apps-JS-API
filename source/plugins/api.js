@@ -367,6 +367,25 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
         return this.deviceInterface().getAppId();
     };
 
+    /**
+     * Метод получения/установки флага - можно или нет приложение закрыть. Приложение Preggie перед закрытием js-приложения может вызывать данный метод.
+     * @example
+     *  PREGGIEAPI.API.canExit(); // getter
+     *  PREGGIEAPI.API.canExit(false); // setter
+     *  PREGGIEAPI.API.canExit(true); // setter
+     *
+     */
+    API.prototype.canExit = (function(){
+        var can = true;
+
+        return function(state) {
+            if(arguments.length > 0) {
+                can = state;
+            }
+            return !!can;
+        };
+    })();
+
 
 	return this.publicateAPI("API", new API());
 });
