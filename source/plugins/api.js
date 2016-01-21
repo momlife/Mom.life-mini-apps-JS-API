@@ -4,7 +4,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * Интерфейс, который реализует публичный API
      * @constructor
      */
-    var INTERFACE = function(){
+    var INTERFACE = function() {
 
     };
 
@@ -13,27 +13,29 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * @return {INTERFACE}
      */
 
-    INTERFACE.prototype.deviceInterface = function(){ return this; };
+    INTERFACE.prototype.deviceInterface = function() {
+        return this;
+    };
 
     /**
      * Описание методов публичного API
      */
-    INTERFACE.prototype.getCurrentUserId = function(){
+    INTERFACE.prototype.getCurrentUserId = function() {
         return '12345';
     };
 
     /**
      * Описание методов публичного API
      */
-    INTERFACE.prototype.showToast = function(message){
+    INTERFACE.prototype.showToast = function(message) {
         alert(message);
     };
 
-	/**
-	 * Описание методов публичного API
-	 */
+    /**
+     * Описание методов публичного API
+     */
 
-	INTERFACE.prototype.getAuthToken = function(options){
+    INTERFACE.prototype.getAuthToken = function(options) {
 
         options = JSON.parse(options);
 
@@ -46,14 +48,14 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     };
 
 
-	/**
-	 * Описание методов публичного API
-	 */
-	INTERFACE.prototype.upload = function(url, options){
+    /**
+     * Описание методов публичного API
+     */
+    INTERFACE.prototype.upload = function(url, options) {
 
         options = JSON.parse(options);
 
-		var progress = 0;
+        var progress = 0;
         var code = Math.random() >= 0.5 ? 101 : 100;
 
 
@@ -62,10 +64,10 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
         //    return;
         //}
 
-		var s_id = setInterval(function(){
+        var s_id = setInterval(function() {
 
 
-			window[options.progress]({progress: (progress+=10)});
+            window[options.progress]({progress: (progress += 10)});
 
             //if(progress == 50){
             //    clearInterval(s_id);
@@ -73,12 +75,12 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
             //    window[options.error]({status: code, statusText: 'Upload error'});
             //}
 
-			if(progress == 100){
-				clearInterval(s_id);
+            if (progress == 100) {
+                clearInterval(s_id);
 
-				window[options.success]({name: '2015:12:23:0820a982-8837-4f26-b8e0-cea32c121c6c.jpg'});
-			}
-		}, 500);
+                window[options.success]({name: '2015:12:23:0820a982-8837-4f26-b8e0-cea32c121c6c.jpg'});
+            }
+        }, 500);
 
         window[options.preview]('iVBORw0KGgoAAAANSUhEUgAAADEAAAA0CAIAAACsM0f4AAADPklEQVR42u2X30tTYRjHj+gM' +
             'ttqPznYwu9CbKUxCyh9sI6YLERkuJdRQKoKg/gDvu+jeP6Cgq0ohJLULiVkXDpRASwbbErdgY8yBUslsQzfDHjzx8uz17OxsHLcZ52EX73nPe57z2fN+n+' +
@@ -94,29 +96,29 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
         );
 
         return s_id;
-	};
+    };
 
     /**
      * Описание методов публичного API
      */
-    INTERFACE.prototype.cancelUpload = function(uploadId){
+    INTERFACE.prototype.cancelUpload = function(uploadId) {
         clearInterval(uploadId);
     };
 
-	/**
-	 * Описание методов публичного API
-	 */
-	INTERFACE.prototype.makePayment = function(price, options){
+    /**
+     * Описание методов публичного API
+     */
+    INTERFACE.prototype.makePayment = function(price, options) {
 
         options = JSON.parse(options);
 
-		setTimeout(function(){
-			window[options.success]({
-				transaction_id: api.random.randomNumber(),
+        setTimeout(function() {
+            window[options.success]({
+                transaction_id: api.random.randomNumber(),
                 additionalDate: {}
-			});
+            });
 
-		}, 1000);
+        }, 1000);
 
         //setTimeout(function(){
         //    window[options.error]({
@@ -125,13 +127,20 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
         //    });
         //
         //}, 1000);
-	};
+    };
 
     /**
      * Описание методов публичного API
      */
-    INTERFACE.prototype.getAppId = function(){
+    INTERFACE.prototype.getAppId = function() {
         return '12345';
+    };
+
+    /**
+     * Описание методов публичного API
+     */
+    INTERFACE.prototype.canExit = function(can) {
+
     };
 
 
@@ -143,17 +152,24 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * @namespace api.api
      * @constructor
      */
-    var API = function(){
+    var API = function() {
         /**
          * Реализация interface с native приложения
          */
-        this.deviceInterface = function(){
+        this.deviceInterface = function() {
             return api.device.os.android() ? window.Android : (api.device.os.ios() ? window.iOS : new INTERFACE().deviceInterface());
         };
 
-        Object.defineProperty(this, '_token', {
-            writable: true,
-            value: null
+        Object.defineProperties(this, {
+            '_token': {
+                writable: true,
+                value: null
+            },
+
+            '_canExit': {
+                writable: true,
+                value: true
+            }
         });
     };
 
@@ -170,7 +186,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * @example PREGGIEAPI.API.getCurrentUserId();
      * @return {*}
      */
-    API.prototype.getCurrentUserId = function(){
+    API.prototype.getCurrentUserId = function() {
         return this.deviceInterface().getCurrentUserId();
     };
 
@@ -180,15 +196,15 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * @example PREGGIEAPI.API.showToast('my-message');
      *
      */
-    API.prototype.showToast = function(message){
+    API.prototype.showToast = function(message) {
         this.deviceInterface().showToast(message);
     };
 
-	/**
-	 * Получить токен авторизация с native приложения
+    /**
+     * Получить токен авторизация с native приложения
      * @param {{success: Function, error: Function}} options
-	 * @example PREGGIEAPI.API.getAuthToken();
-	 * @example PREGGIEAPI.API.getAuthToken({
+     * @example PREGGIEAPI.API.getAuthToken();
+     * @example PREGGIEAPI.API.getAuthToken({
 	 *  success: function(token){
 	 *      // async
 	 *  },
@@ -196,11 +212,11 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 	 *      // some-error
 	 *  }
      * });
-	 * @return {*}
-	 */
-	API.prototype.getAuthToken = function(options){
+     * @return {*}
+     */
+    API.prototype.getAuthToken = function(options) {
 
-        if(!options){
+        if (!options) {
             return this._token;
         }
 
@@ -212,9 +228,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
          * Функция, вызываемая в случае успешного получения токена
          * @param data
          */
-        function successCallback(data){
+        function successCallback(data) {
             // после успешного получения токена удаляем с global scope созданные глобальные функции
-            [success, error].forEach(function(callback){
+            [success, error].forEach(function(callback) {
                 api.utils.removeGlobalCallback(callback);
             });
 
@@ -226,9 +242,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
          * Функция, вызываемая в случае возникновения ошибок при получении токена
          * @param errorData
          */
-        function errorCallback(errorData){
+        function errorCallback(errorData) {
             // при возникновении ошибки получения токена удаляем с global scope созданные глобальные функции
-            [success, error].forEach(function(callback){
+            [success, error].forEach(function(callback) {
                 api.utils.removeGlobalCallback(callback);
             });
 
@@ -236,20 +252,20 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
             options.error && options.error(errorData);
         }
 
-		return this.deviceInterface().getAuthToken(
+        return this.deviceInterface().getAuthToken(
             JSON.stringify({
                 success: success,
                 error: error
             })
         );
-	};
+    };
 
-	/**
-	 * Загрузка изображения через native приложение
-	 * @param {String} url - url сервера для загрузки изображения
+    /**
+     * Загрузка изображения через native приложение
+     * @param {String} url - url сервера для загрузки изображения
      * @param {{preview: Function, progress: Function, success: Function, error: Function}} options
-	 */
-	API.prototype.upload = function(url, options){
+     */
+    API.prototype.upload = function(url, options) {
         var preview = api.utils.createGlobalCallback(options.preview);
         var progress = api.utils.createGlobalCallback(options.progress);
         var success = api.utils.createGlobalCallback(successCallback);
@@ -259,9 +275,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
          * Функция, вызываемая после успешного завершения загрузки картинки
          * @param data
          */
-        function successCallback(data){
+        function successCallback(data) {
             // после успешного получения картинки удаляем с global scope созданные глобальные функции
-            [preview, progress, success, error].forEach(function(callback){
+            [preview, progress, success, error].forEach(function(callback) {
                 api.utils.removeGlobalCallback(callback);
             });
 
@@ -274,10 +290,10 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
          * Функция, вызываемая в случае возникновения ошибок при загрузке
          * @param errorData
          */
-        function errorCallback(errorData){
+        function errorCallback(errorData) {
 
             // в случае ошибки получения картинки удаляем с global scope созданные глобальные функции
-            [preview, progress, success, error].forEach(function(callback){
+            [preview, progress, success, error].forEach(function(callback) {
                 api.utils.removeGlobalCallback(callback);
             });
 
@@ -285,37 +301,37 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
             options.error && options.error(errorData);
         }
 
-		// вызов нативного приложения выбора файла
-		return this.deviceInterface().upload(
+        // вызов нативного приложения выбора файла
+        return this.deviceInterface().upload(
             url,
             JSON.stringify({
                 preview: preview,
-			    progress: progress,
+                progress: progress,
                 success: success,
                 error: error
-		    })
+            })
         )
-	};
+    };
 
     /**
      * Метод отмены загрузки через native приложение
      * @param uploadId
      * @example PREGGIEAPI.API.cancelUpload('uploadId-1234');
      */
-    API.prototype.cancelUpload = function(uploadId){
+    API.prototype.cancelUpload = function(uploadId) {
         // вызов нативного приложения отмены загрузки файла
         this.deviceInterface().cancelUpload(uploadId);
     };
 
-	/**
-	 * Совершить платеж (отправить пользователя в приложение для соверешения оплаты)
-	 * @example PREGGIEAPI.API.makePayment(function(data){
+    /**
+     * Совершить платеж (отправить пользователя в приложение для соверешения оплаты)
+     * @example PREGGIEAPI.API.makePayment(function(data){
 	 *   // data.transaction_id
 	 * });
-	 * @param price
+     * @param price
      * @param {{success: Function, error: Function}} options
-	 */
-	API.prototype.makePayment = function(price, options){
+     */
+    API.prototype.makePayment = function(price, options) {
         var success = api.utils.createGlobalCallback(successCallback);
         var error = api.utils.createGlobalCallback(errorCallback);
 
@@ -323,9 +339,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
          * Функция, вызываемая после прохождения оплаты либо ее отмены
          * @param data
          */
-        function successCallback(data){
+        function successCallback(data) {
             // после завершения оплаты либо ее отметы удаляем с global scope созданные глобальные функции
-            [success, error].forEach(function(callback){
+            [success, error].forEach(function(callback) {
                 api.utils.removeGlobalCallback(callback);
             });
 
@@ -338,9 +354,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
          * Функция, вызываемая в случае возникновения ошибок при загрузке
          * @param errorData
          */
-        function errorCallback(errorData){
+        function errorCallback(errorData) {
             // после завершения оплаты либо ее отметы удаляем с global scope созданные глобальные функции
-            [success, error].forEach(function(callback){
+            [success, error].forEach(function(callback) {
                 api.utils.removeGlobalCallback(callback);
             });
 
@@ -349,21 +365,21 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
         }
 
 
-		this.deviceInterface().makePayment(
+        this.deviceInterface().makePayment(
             price,
             JSON.stringify({
                 success: success,
                 error: error
             })
         );
-	};
+    };
 
     /**
      * Метод получения ID приложения
      * @example PREGGIEAPI.API.getAppId();
      * @return {String}
      */
-    API.prototype.getAppId = function(){
+    API.prototype.getAppId = function() {
         return this.deviceInterface().getAppId();
     };
 
@@ -375,17 +391,16 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      *  PREGGIEAPI.API.canExit(true); // setter
      *
      */
-    API.prototype.canExit = (function(){
-        var can = true;
+    API.prototype.canExit = function(state) {
+        if (arguments.length > 0) {
+            this._canExit = !!state;
+        }
 
-        return function(state) {
-            if(arguments.length > 0) {
-                can = state;
-            }
-            return !!can;
-        };
-    })();
+        this.deviceInterface().canExit(this._canExit);
+
+        return this._canExit;
+    };
 
 
-	return this.publicateAPI("API", new API());
+    return this.publicateAPI("API", new API());
 });
