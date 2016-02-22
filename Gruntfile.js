@@ -26,6 +26,8 @@ module.exports = function (grunt) {
     grunt.initConfig({
         globalConfig: globalConfig,
 
+        bumpup: 'package.json',
+
         pkg: grunt.file.readJSON('package.json'),
 
 
@@ -246,7 +248,8 @@ module.exports = function (grunt) {
             'closureCompiler',
             'clean:preggieapitmp',
             'usebanner:dist',
-            'create-loader'
+            'create-loader',
+            'bumpup',
         ]);
 
     });

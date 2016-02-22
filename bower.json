@@ -19,6 +19,6 @@
     "tests"
   ],
   "dependencies": {
-    "Modules": "~0.0.1"
+    "Modules": "~0.0.2"
   }
 }
