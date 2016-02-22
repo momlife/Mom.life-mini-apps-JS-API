@@ -1,0 +1,24 @@
+{
+  "name": "PREGGIE_JSAPI",
+  "description": "JS API for Preggie HTML5 extension",
+  "main": "build/preggieapi.min.js",
+  "authors": [
+    "Alexander Usolcev <alexander.usolcev@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "globals"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Modules": "~0.0.1"
+  }
+}

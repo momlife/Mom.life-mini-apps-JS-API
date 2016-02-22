@@ -1,6 +1,6 @@
 (function (){
 
-            var plugins = ["source/core.js"
+            var plugins = ["source/modules.js"
 ,"source/plugins/api.js"
 ,"source/plugins/date.js"
 ,"source/plugins/device.js"

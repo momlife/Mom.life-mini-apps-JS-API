@@ -17,7 +17,7 @@ module.exports = function (grunt) {
     var globalConfig = {
         sourcePath: 'source',
         buildPath: 'build',
-        projectName: false,
+        bowerPath: 'bower_components',
 
         filesToBuild: []
     };
@@ -86,31 +86,17 @@ module.exports = function (grunt) {
 
         // Copies remaining files to places other tasks can use
         copy: {
-            embed:{
-                options: {
-                    processContent: function (content, srcpath) {
-                        return grunt.template.process(content);
-                    }
-                },
+            modules:{
                 files: [
                     {
                         expand: true,
-                        dot: true,
-                        cwd: '<%= yeoman.app %>',
-                        dest: '<%= yeoman.dist %>',
+                        cwd: '<%= globalConfig.bowerPath %>/',
                         src: [
-                            'embed/*'
-                        ]
-                    }
-                ]
-            },
-            dist: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: '.tmp/images',
-                        dest: '<%= yeoman.dist %>/images',
-                        src: ['generated/*']
+                            'Modules/source/modules.js'
+                        ],
+                        dest: '<%= globalConfig.sourcePath %>/',
+                        flatten: true,
+                        filter: 'isFile'
                     }
                 ]
             }
@@ -248,12 +234,13 @@ module.exports = function (grunt) {
     // Set build task. Main task
     grunt.registerTask('build', function() {
         globalConfig.filesToBuild = [
-            globalConfig.sourcePath + '/core.js',
+            globalConfig.sourcePath + '/modules.js',
             globalConfig.sourcePath + '/plugins/*.js',
             globalConfig.sourcePath + '/plugins/vendor/*.js'
         ];
 
         grunt.task.run([
+            'copy:modules',
             'clean:dist',
             'concat:preggieapi',
             'closureCompiler',
