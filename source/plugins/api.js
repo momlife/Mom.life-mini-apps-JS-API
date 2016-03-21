@@ -2,6 +2,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Интерфейс, который реализует публичный API
+     *
      * @constructor
      */
     var INTERFACE = function() {
@@ -10,6 +11,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * MOCK реализация interface с native приложения
+     *
      * @return {INTERFACE}
      */
 
@@ -18,23 +20,22 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     };
 
     /**
-     * Описание методов публичного API
+     * MOCK. Получить id текущего пользователя
      */
     INTERFACE.prototype.getCurrentUserId = function() {
-        return '12345';
+        return '123456789';
     };
 
     /**
-     * Описание методов публичного API
+     * MOCK. Вывести сообщение в native приложении
      */
     INTERFACE.prototype.showToast = function(message) {
         alert(message);
     };
 
     /**
-     * Описание методов публичного API
+     * MOCK. Получить токен авторизация с native приложения
      */
-
     INTERFACE.prototype.getAuthToken = function(options) {
 
         options = JSON.parse(options);
@@ -64,7 +65,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
 
     /**
-     * Описание методов публичного API
+     * MOCK. Описание методов публичного API
      */
     INTERFACE.prototype.upload = function(url, options) {
 
@@ -114,14 +115,14 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     };
 
     /**
-     * Описание методов публичного API
+     * MOCK. Описание методов публичного API
      */
     INTERFACE.prototype.cancelUpload = function(uploadId) {
         clearInterval(uploadId);
     };
 
     /**
-     * Описание методов публичного API
+     * MOCK. Описание методов публичного API
      */
     INTERFACE.prototype.makePayment = function(price, options) {
 
@@ -129,8 +130,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
         setTimeout(function() {
             window[options.success]({
-                transaction_id: api.random.randomNumber(),
-                additionalDate: {}
+                transaction_id: api.random.randomNumber()
             });
 
         }, 1000);
@@ -148,7 +148,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * Описание методов публичного API
      */
     INTERFACE.prototype.getAppId = function() {
-        return '12345';
+        return '123456789';
     };
 
     /**
@@ -161,6 +161,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Глобальный API для всех приложений
+     *
      * @alias PREGGIEAPI.API
      * @alias api.api
      * @namespace PREGGIEAPI.API
@@ -189,7 +190,8 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     };
 
     /**
-     * Наследование
+     * Наследование c интерфейса
+     *
      * @type {INTERFACE}
      */
     API.prototype = Object.create(INTERFACE.prototype);
@@ -198,6 +200,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Получить id текущего пользователя
+     *
      * @example PREGGIEAPI.API.getCurrentUserId();
      * @return {*}
      */
@@ -207,6 +210,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Вывести сообщение в native приложении
+     *
      * @param message
      * @example PREGGIEAPI.API.showToast('my-message');
      *
@@ -217,6 +221,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Получить токен авторизация с native приложения
+     *
      * @param {{success: Function, error: Function}} options
      * @example PREGGIEAPI.API.getAuthToken();
      * @example PREGGIEAPI.API.getAuthToken({
@@ -241,6 +246,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
         /**
          * Функция, вызываемая в случае успешного получения токена
+         *
          * @param data
          */
         function successCallback(data) {
@@ -255,6 +261,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
         /**
          * Функция, вызываемая в случае возникновения ошибок при получении токена
+         *
          * @param errorData
          */
         function errorCallback(errorData) {
@@ -277,6 +284,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Загрузка изображения через native приложение
+     *
      * @param {String} url - url сервера для загрузки изображения
      * @param {{preview: Function, progress: Function, success: Function, error: Function}} options
      */
@@ -288,6 +296,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
         /**
          * Функция, вызываемая после успешного завершения загрузки картинки
+         *
          * @param data
          */
         function successCallback(data) {
@@ -303,6 +312,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
         /**
          * Функция, вызываемая в случае возникновения ошибок при загрузке
+         *
          * @param errorData
          */
         function errorCallback(errorData) {
@@ -330,7 +340,8 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Метод отмены загрузки через native приложение
-     * @param uploadId
+     *
+     * @param uploadId - id загрузки, полученный ранее с метода upload
      * @example PREGGIEAPI.API.cancelUpload('uploadId-1234');
      */
     API.prototype.cancelUpload = function(uploadId) {
@@ -340,10 +351,16 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Совершить платеж (отправить пользователя в приложение для соверешения оплаты)
-     * @example PREGGIEAPI.API.makePayment(function(data){
-	 *   // data.transaction_id
-	 * });
-     * @param price
+     *
+     * @example PREGGIEAPI.API.makePayment(15000, {
+     *  success: function(data){
+	 *      // data.transaction_id
+	 *  },
+	 *  error: function(errorData) {
+	 *      // errorData.status
+	 *  }
+     * });
+     * @param price - цена платежа (указывается в копейках)
      * @param {{success: Function, error: Function}} options
      */
     API.prototype.makePayment = function(price, options) {
@@ -367,6 +384,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
         /**
          * Функция, вызываемая в случае возникновения ошибок при загрузке
+         *
          * @param errorData
          */
         function errorCallback(errorData) {
@@ -391,6 +409,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Метод получения ID приложения
+     *
      * @example PREGGIEAPI.API.getAppId();
      * @return {String}
      */
@@ -400,11 +419,12 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
 
     /**
      * Метод получения/установки флага - можно или нет приложение закрыть. Приложение Preggie перед закрытием js-приложения может вызывать данный метод.
+     *
      * @example
      *  PREGGIEAPI.API.canExit(); // getter
      *  PREGGIEAPI.API.canExit(false); // setter
      *  PREGGIEAPI.API.canExit(true); // setter
-     *
+     * @return {Boolean}
      */
     API.prototype.canExit = function(state) {
         if (arguments.length > 0) {

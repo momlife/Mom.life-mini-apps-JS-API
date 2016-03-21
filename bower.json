@@ -1,5 +1,5 @@
 {
-  "name": "PREGGIE_JSAPI",
+  "name": "PREGGIE_EXTENSIONS_JS_API",
   "description": "JS API for Preggie HTML5 extension",
   "main": "build/preggieapi.min.js",
   "authors": [

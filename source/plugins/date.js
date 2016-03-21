@@ -1,53 +1,61 @@
-PREGGIEAPI.module("date", function () {
+PREGGIEAPI.module("date", function() {
 
-    var assign = function(dst, src){
+    var assign = function(dst, src) {
         for (var key in src) {
-            if (src.hasOwnProperty(key)){
+            if (src.hasOwnProperty(key)) {
                 dst[key] = src[key];
             }
         }
 
         return dst;
     };
-	/**
-	 * Модуль работы со временем
-	 * @namespace api.date
-	 * @type {{}}
-	 */
-	var date = {};
-	
-	date.absolute = function () {
-		var value = new Date(0);
-		
-		return {
-			day: function (d) {
-				return (value.setDate(d), this);
-			},
 
-			month: function (m) {
-				return (value.setMonth(m-1), this);
-			},
+    /**
+     * Модуль работы со временем
+     *
+     * @namespace api.date
+     */
+    var date = {};
 
-			year: function (y) {
-				return (value.setFullYear(y), this);
-			},
+    date.absolute = function() {
+        var value = new Date(0);
 
-			getTime: function () {
-				return value.getTime();
-			},
+        return {
+            day: function(d) {
+                return (value.setDate(d), this);
+            },
 
-			getUTC: function () {
-				return value.toUTCString();
-			}
-		};
-	};
+            month: function(m) {
+                return (value.setMonth(m - 1), this);
+            },
 
-    date.unixtime = function (d) {
+            year: function(y) {
+                return (value.setFullYear(y), this);
+            },
+
+            getTime: function() {
+                return value.getTime();
+            },
+
+            getUTC: function() {
+                return value.toUTCString();
+            }
+        };
+    };
+
+    /**
+     * Получить дату в формате unixtime
+     *
+     * @param [d] - объект Date()
+     * @returns {number}
+     */
+    date.unixtime = function(d) {
         return ~~((d || new Date()).getTime() / 1000);
     };
 
     /**
      * Метод toLocaleString() возвращает строку с языко-зависимым представлением даты.
+     *
      * @param unixtime
      * @param locales
      * @param options
@@ -66,7 +74,7 @@ PREGGIEAPI.module("date", function () {
         }); // "Wednesday, December 16, 2015 Anno Domini, 11:52:08 AM"
      * @return {string}
      */
-    date.toLocaleString = function(unixtime, locales, options){
+    date.toLocaleString = function(unixtime, locales, options) {
         var d = new Date((unixtime || date.unixtime()) * 1000);
 
         // options = assign({
@@ -78,18 +86,19 @@ PREGGIEAPI.module("date", function () {
         return d.toLocaleString(locales || "ru", options);
     };
 
-	/**
-	 * Метод возращающий время в формате "Часы:минуты"
-	 * @example api.date.H_M(1449242709); // "16:25"
-	 * @return {string}
-	 */
-	date.H_M = function(unixtime){
-		var d = new Date(unixtime * 1000);
-		var hours = d.getHours() <  10 ? "0" + d.getHours() : d.getHours();
-		var minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
-		//var seconds = d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds();
-		return (hours + ":" + minutes /*+ ":" + seconds*/);
-	};
+    /**
+     * Метод возращающий время в формате "Часы:минуты"
+     *
+     * @example api.date.H_M(1449242709); // "16:25"
+     * @return {string}
+     */
+    date.H_M = function(unixtime) {
+        var d = new Date(unixtime * 1000);
+        var hours = d.getHours() < 10 ? "0" + d.getHours() : d.getHours();
+        var minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
+        //var seconds = d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds();
+        return (hours + ":" + minutes /*+ ":" + seconds*/);
+    };
 
-	return this.publicateAPI("date", date);
+    return this.publicateAPI("date", date);
 });

@@ -50,19 +50,6 @@ module.exports = function (grunt) {
             }
         },
 
-
-        // Make sure code styles are up to par and there are no obvious mistakes
-        jshint: {
-            options: {
-                jshintrc: '.jshintrc',
-                reporter: require('jshint-stylish')
-            },
-            all: [
-                'Gruntfile.js',
-                '<%= yeoman.preggieapi %>'
-            ]
-        },
-
         // Empties folders to start fresh
         clean: {
             dist: {
@@ -102,21 +89,6 @@ module.exports = function (grunt) {
                     }
                 ]
             }
-        },
-
-        // Run some tasks in parallel to speed up the build process
-        concurrent: {
-            server: [
-                'copy:styles',
-                'less:prod'
-            ],
-            test: [
-                'copy:styles'
-            ],
-            dist: [
-                'copy:styles',
-                'less:prod'
-            ]
         },
 
         closureCompiler:  {
@@ -175,18 +147,8 @@ module.exports = function (grunt) {
 		]);
 	});
 
-    grunt.registerTask('dev', function (target) {
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'connect:dist:keepalive']);
-        }
-
-        grunt.task.run([
-            'watch'
-        ]);
-    });
-
     // Task which create preggieapi.loader.js for all projects
-    grunt.registerTask("create-loader", "Create preggieapi.loader.js for each project", function() {
+    grunt.registerTask("create-loader", "Create preggieapi.loader.js", function() {
 
         var plugins = [];
 
@@ -249,7 +211,7 @@ module.exports = function (grunt) {
             'clean:preggieapitmp',
             'usebanner:dist',
             'create-loader',
-            'bumpup',
+            'bumpup'
         ]);
 
     });
