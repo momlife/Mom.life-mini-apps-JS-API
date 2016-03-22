@@ -1,4 +1,4 @@
-PREGGIEAPI.module("device", function() {
+Modules.module("device", function() {
     var userAgent = navigator.userAgent, version = null;
 
     var webkit = userAgent.match(/Web[kK]it[\/]{0,1}([\d.]+)/),
@@ -13,8 +13,8 @@ PREGGIEAPI.module("device", function() {
      * @alias api.device
      * @namespace api.device
      * @example
-     *  PREGGIEAPI.device.os.android(); // true || false
-     *  PREGGIEAPI.device.os.ios(); // true || false
+     *  Modules.device.os.android(); // true || false
+     *  Modules.device.os.ios(); // true || false
      * @type {{platform: {name: string}, webview: Function, os: {version: Function, android: Function, ios: Function, ipad: Function, ipod: Function, iphone: Function}}}
      */
     var Device = {

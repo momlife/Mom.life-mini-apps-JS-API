@@ -18,10 +18,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <title>Test Preggie App</title>
     
-        <script type="text/javascript">
-            (Modules = window.Modules || {}).name = 'PREGGIEAPI';
-        </script>
-    
         <script src="path-to-preggie-extensions-js-api/build/preggieapi.min.js"></script>        
     </head>
     <body>
@@ -30,7 +26,7 @@
     </p>
     
     <p>
-        <input type="text" id="message">
+        <input type="text" id="message" placeholder="Сообщение">
         <button onclick="PREGGIEAPI.API.showToast(document.getElementById('message').value)">showToast</button>
     </p>
     
@@ -138,7 +134,9 @@
     </html>
 
 
-В примере выше находятся вызовы доступных методов с PreggieAPP. 
-Если эту страницу запустить не на уровное приложения Preggie, а в браузере - будут использоваться mock данные (для разработки) 
+В примере выше находятся вызовы доступных методов с PreggieAPP. Точкой входа в API является глобальный объект <b>PREGGIEAPI</b>.
 
-Полное описаниее методов можно найти по [ссылке](http://docs.preggieextensionsdocumentation.apiary.io/#).
+Если эту страницу запустить не на уровное приложения Preggie, а в браузере - будут использоваться mock данные (для разработки). <br>
+Если же открыть в приложении PreggieAPP - будут использоваться данные полученные напрямую у самого PreggieAPP. 
+
+Полное описание методов можно найти по [ссылке](http://docs.preggieextensionsdocumentation.apiary.io/#).

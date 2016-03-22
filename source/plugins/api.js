@@ -1,4 +1,13 @@
-PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
+Modules.load('device', 'utils', 'random').module('api', function(api) {
+
+    /**
+     * Добавить в global scope PREGGIEAPI.
+     * Это аналогично вызову до подключения Modules:
+     *  (Modules = window.Modules || {}).name = 'PREGGIEAPI';
+     *
+     * @type {Modules}
+     */
+    window.PREGGIEAPI = Modules;
 
     /**
      * Интерфейс, который реализует публичный API
@@ -162,9 +171,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * Глобальный API для всех приложений
      *
-     * @alias PREGGIEAPI.API
+     * @alias Modules.API
      * @alias api.api
-     * @namespace PREGGIEAPI.API
+     * @namespace Modules.API
      * @namespace api.api
      * @constructor
      */
@@ -201,7 +210,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * Получить id текущего пользователя
      *
-     * @example PREGGIEAPI.API.getCurrentUserId();
+     * @example Modules.API.getCurrentUserId();
      * @return {*}
      */
     API.prototype.getCurrentUserId = function() {
@@ -212,7 +221,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * Вывести сообщение в native приложении
      *
      * @param message
-     * @example PREGGIEAPI.API.showToast('my-message');
+     * @example Modules.API.showToast('my-message');
      *
      */
     API.prototype.showToast = function(message) {
@@ -223,8 +232,8 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * Получить токен авторизация с native приложения
      *
      * @param {{success: Function, error: Function}} options
-     * @example PREGGIEAPI.API.getAuthToken();
-     * @example PREGGIEAPI.API.getAuthToken({
+     * @example Modules.API.getAuthToken();
+     * @example Modules.API.getAuthToken({
 	 *  success: function(token){
 	 *      // async
 	 *  },
@@ -342,7 +351,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * Метод отмены загрузки через native приложение
      *
      * @param uploadId - id загрузки, полученный ранее с метода upload
-     * @example PREGGIEAPI.API.cancelUpload('uploadId-1234');
+     * @example Modules.API.cancelUpload('uploadId-1234');
      */
     API.prototype.cancelUpload = function(uploadId) {
         // вызов нативного приложения отмены загрузки файла
@@ -352,7 +361,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * Совершить платеж (отправить пользователя в приложение для соверешения оплаты)
      *
-     * @example PREGGIEAPI.API.makePayment(15000, {
+     * @example Modules.API.makePayment(15000, {
      *  success: function(data){
 	 *      // data.transaction_id
 	 *  },
@@ -410,7 +419,7 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * Метод получения ID приложения
      *
-     * @example PREGGIEAPI.API.getAppId();
+     * @example Modules.API.getAppId();
      * @return {String}
      */
     API.prototype.getAppId = function() {
@@ -421,9 +430,9 @@ PREGGIEAPI.load('device', 'utils', 'random').module('api', function(api) {
      * Метод получения/установки флага - можно или нет приложение закрыть. Приложение Preggie перед закрытием js-приложения может вызывать данный метод.
      *
      * @example
-     *  PREGGIEAPI.API.canExit(); // getter
-     *  PREGGIEAPI.API.canExit(false); // setter
-     *  PREGGIEAPI.API.canExit(true); // setter
+     *  Modules.API.canExit(); // getter
+     *  Modules.API.canExit(false); // setter
+     *  Modules.API.canExit(true); // setter
      * @return {Boolean}
      */
     API.prototype.canExit = function(state) {
