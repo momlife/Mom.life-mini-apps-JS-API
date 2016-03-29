@@ -231,7 +231,7 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * Получить токен авторизация с native приложения
      *
-     * @param {{success: Function, error: Function}} options
+     * @param {{success: Function, error: Function}} [options]
      * @example Modules.API.getAuthToken();
      * @example Modules.API.getAuthToken({
 	 *  success: function(token){
