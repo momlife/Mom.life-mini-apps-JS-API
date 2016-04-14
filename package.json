@@ -1,8 +1,11 @@
 {
   "name": "PREGGIE_EXTENSIONS_JS_API",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Alexander Usolcev <alexander.usolcev@gmail.com>",
-  "repository": "https://bitbucket.org/preggieapp/preggie-extensions-js-api",
+  "repository": {
+    "type" : "git",
+    "url" : "https://bitbucket.org/preggieapp/preggie-extensions-js-api"
+  },
   "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.5",

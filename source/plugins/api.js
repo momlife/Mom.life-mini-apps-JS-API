@@ -49,25 +49,8 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
 
         options = JSON.parse(options);
 
-        // 2-х недельный токен
-        //var token = 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjA3MjM3NDAsIm9yaWdfaWF0IjoxNDUyMDgzNz' +
-        //    'QwLCJlbWFpbCI6ImFzZGFkQGFzZC5ydSIsInVzZXJuYW1lIjoiYWRtaW4iLCJ1c2VyX2lkIjoxfQ.g7QP_zYP_OvdBJzvyAlDTQ2ydu0WEXMx2UFE3yON9a4';
 
-        fetch('http://extension-consultation.preggie.testbb.ru/auth/ext', {
-            method: "POST",
-            body: JSON.stringify({"username": "admin", "password": "1"}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function(data) {
-            return data.json()
-        }).then(function(data) {
-            window[options.success]({token: 'JWT ' + data.token});
-        }).catch(function() {
-            window[options.error]({status: 101, statusText: 'getAuthToken error'});
-        });
-
-        //window[options.success]({token: token});
+        window[options.success]({token: 'JWT ' + 'some token...'});
 
         //window[options.error]({status: 101, statusText: 'getAuthToken error'});
     };
