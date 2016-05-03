@@ -137,17 +137,24 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
     };
 
     /**
-     * Описание методов публичного API
+     * MOCK. Описание методов публичного API
      */
     INTERFACE.prototype.getAppId = function() {
         return '123456789';
     };
 
     /**
-     * Описание методов публичного API
+     * MOCK. Описание методов публичного API
      */
     INTERFACE.prototype.canExit = function(can) {
 
+    };
+
+    /**
+     * MOCK. Описание методов публичного API
+     */
+    INTERFACE.prototype.isDevice = function() {
+        return !!(window.Android || window.iOS);
     };
 
 
