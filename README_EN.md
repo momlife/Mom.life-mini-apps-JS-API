@@ -1,7 +1,7 @@
 # Description
-Below you can become familiar with description of connection and use "Preggie extension js api" - JavaScript library for working with PreggieAPP (Preggie native application).
+Below you can become familiar with description of connection and use "mom.life extension js api" - JavaScript library for working with mom.life APP (mom.life native application).
 
-"Preggie extension js api" is a bridge between PreggieAPP and developer’s JS application. JS-API provides the ability to call native methods of PreggieAPP application.
+"mom.life extension js api" is a bridge between mom.life APP and developer’s JS application. JS-API provides the ability to call native methods of mom.life APP application.
  
 # Connection
 Download\ clone project from bitbucket.
@@ -16,9 +16,9 @@ Create html page with connected js-api:
     <head lang="en">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <title>Test Preggie App</title>
+        <title>Test mom.life App</title>
     
-        <script src="path-to-preggie-extensions-js-api/build/preggieapi.min.js"></script>        
+        <script src="path-to-mom-life-extensions-js-api/build/preggieapi.min.js"></script>        
     </head>
     <body>
     <p>
@@ -134,9 +134,9 @@ Create html page with connected js-api:
     </html>
 
 
-Example above contains calls to available methods from PreggieAPP. The entry point to APP is a global object **PREGGIEAPI**.
+Example above contains calls to available methods from mom.life APP. The entry point to APP is a global object **PREGGIEAPI**.
 
-If this page runs in browser (not in Preggie application), will be used mock data (for development). 
- If runs in PreggieAPP application, will be used data obtained directly from the very PreggieAPP.
+If this page runs in browser (not in mom.life application), will be used mock data (for development). 
+ If runs in mom.life APP application, will be used data obtained directly from the very mom.life APP.
 
 Full description of methods can be found [here](http://docs.momlifeextensionsdocumentation.apiary.io/#reference).

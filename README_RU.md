@@ -1,7 +1,7 @@
 # Описание
-Ниже идет описание подключения и использования "Preggie extension js api" - JavaScript библиотеки для работы с PreggieAPP (нативное приложение Preggie).
+Ниже идет описание подключения и использования "mom.life extension js api" - JavaScript библиотеки для работы с mom.life APP (нативное приложение mom.life).
 
-"Preggie extension js api" - это мост между PreggieAPP и JS приложением разработчика. JS-API дает возможность вызывать native методы приложения PreggieAPP.
+"mom.life extension js api" - это мост между mom.life APP и JS приложением разработчика. JS-API дает возможность вызывать native методы приложения mom.life APP.
  
 # Подключение
 Скачать\склонировать с bitbucket проект.
@@ -16,9 +16,9 @@
     <head lang="en">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <title>Test Preggie App</title>
+        <title>Test mom.life App</title>
     
-        <script src="path-to-preggie-extensions-js-api/build/preggieapi.min.js"></script>        
+        <script src="path-to-mom-life-extensions-js-api/build/preggieapi.min.js"></script>        
     </head>
     <body>
     <p>
@@ -134,9 +134,9 @@
     </html>
 
 
-В примере выше находятся вызовы доступных методов с PreggieAPP. Точкой входа в API является глобальный объект **PREGGIEAPI**.
+В примере выше находятся вызовы доступных методов с mom.life APP. Точкой входа в API является глобальный объект **PREGGIEAPI**.
 
-Если эту страницу запустить не на уровное приложения Preggie, а в браузере - будут использоваться mock данные (для разработки).  
-Если же открыть в приложении PreggieAPP - будут использоваться данные полученные напрямую у самого PreggieAPP. 
+Если эту страницу запустить не на уровное приложения mom.life, а в браузере - будут использоваться mock данные (для разработки).  
+Если же открыть в приложении mom.life APP - будут использоваться данные полученные напрямую у самого mom.life APP. 
 
 Полное описание методов можно найти по [ссылке](http://docs.preggieextensionsdocumentation.apiary.io/#reference).
