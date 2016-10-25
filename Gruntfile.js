@@ -91,30 +91,23 @@ module.exports = function (grunt) {
             }
         },
 
-        closureCompiler:  {
-
+        uglify: {
             options: {
-                // [REQUIRED] Path to closure compiler
-                compilerFile: 'tools/closure_compiler/compiler.jar',
+                compress: {
+                    dead_code: true,
+                    // drop_console: true,
 
-                // [OPTIONAL] set to true if you want to check if files were modified
-                // before starting compilation (can save some time in large sourcebases)
-                checkModified: true,
-
-                compilerOpts: {
-                    charset: "UTF-8"
+                    global_defs: {
+                        'DEBUG': false
+                    }
                 }
-
             },
-
-            // any name that describes your task
-            targetName: {
-                // [OPTIONAL] Target files to compile. Can be a string, an array of strings
-                // or grunt file syntax (<config:...>, *)
-                src: '<%= globalConfig.buildPath %>/preggieapi.min.tmp.js',
-
-                // [OPTIONAL] set an output file
-                dest: '<%= globalConfig.buildPath %>/preggieapi.min.js'
+            my_target: {
+                files: {
+                    '<%= globalConfig.buildPath %>/preggieapi.min.js': [
+                        '<%= globalConfig.buildPath %>/preggieapi.min.tmp.js'
+                    ]
+                }
             }
         },
 
@@ -207,7 +200,7 @@ module.exports = function (grunt) {
             'copy:modules',
             'clean:dist',
             'concat:preggieapi',
-            'closureCompiler',
+            'uglify',
             'clean:preggieapitmp',
             'usebanner:dist',
             'create-loader',
