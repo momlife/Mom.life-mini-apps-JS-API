@@ -139,4 +139,4 @@
 Если эту страницу запустить не на уровное приложения mom.life, а в браузере - будут использоваться mock данные (для разработки).  
 Если же открыть в приложении mom.life APP - будут использоваться данные полученные напрямую у самого mom.life APP. 
 
-Полное описание методов можно найти по [ссылке](http://docs.preggieextensionsdocumentation.apiary.io/#reference).
+Полное описание методов можно найти по [ссылке](http://docs.momlifeextensionsdocumentationru.apiary.io/#reference).
