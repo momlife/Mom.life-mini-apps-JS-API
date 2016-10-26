@@ -48,7 +48,7 @@ Modules.load("random").module("utils", function(api) {
          *
          * @param {Number} number
          * @param {Array} titles
-         * @param {Boolean} with_number
+         * @param {Boolean} [with_number]
          * @example Modules.utils.plural(2, ["секунда", "секунды", "секунд"]); // "секунды"
          * @example Modules.utils.plural(5, ["секунда", "секунды", "секунд"], true); // "5 секунд"
          * @return {*}
