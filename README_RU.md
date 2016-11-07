@@ -9,6 +9,10 @@
 - git clone git@bitbucket.org:momlife/extensions-js-api.git
 - https://bitbucket.org/momlife/extensions-js-api
 
+Или вы можете установить через npm:
+
+- `npm i momlife-extensions-js-api --save-dev`
+
 Создать html страницу с подключенным js-api:
     
     <!DOCTYPE html>
