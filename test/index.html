@@ -51,7 +51,7 @@
 
             _log(null);
 
-            PREGGIEAPI.API.upload('http://path-to-server/api/v1/file/upload', {
+            PREGGIEAPI.API.upload('http://extension-consultation.preggie.testbb.ru/upload/file', {
                 progress: function(data) {
                     _log('upload progress=' + data.progress);
                 },
@@ -81,7 +81,7 @@
         document.getElementById('makePaiment').onclick = function() {
             var _log = log('makePaimentLog');
 
-            PREGGIEAPI.API.makePayment(100, {
+            PREGGIEAPI.API.makePayment(10000, {
                 success: function(data) {
                     _log('success. transaction_id is ' + data.transaction_id);
                 },
