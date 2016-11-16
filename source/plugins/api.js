@@ -153,9 +153,23 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * MOCK. Описание методов публичного API
      */
+    INTERFACE.prototype.setTitle = function(title) {
+        document.title = title;
+    };
+
+    /**
+     * MOCK. Описание методов публичного API
+     */
     INTERFACE.prototype.isDevice = function() {
         return !!(window.Android || window.iOS);
     };
+
+    /**
+     * MOCK. Описание методов публичного API
+     *
+     * @type {string}
+     */
+    INTERFACE.prototype.version = '1.2.1';
 
 
     /**
@@ -433,6 +447,23 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
         this.deviceInterface().canExit(this._canExit);
 
         return this._canExit;
+    };
+
+
+    /**
+     * Метод установки title в окне приложения.
+     *
+     * @example
+     *  Modules.API.setTitle('new page title');
+     * @param {String} title
+     * @return {*}
+     */
+    API.prototype.setTitle = function(title) {
+        if (title) {
+            this.deviceInterface().setTitle(title);
+        }
+
+        return title;
     };
 
 

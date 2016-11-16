@@ -131,7 +131,23 @@ module.exports = function (grunt) {
 				    template : "node_modules/jsdoc3-bootstrap"
 			    }
 		    }
-	    }
+	    },
+
+        'string-replace': {
+            dist: {
+                files: {
+                    './source/plugins/api.js': './source/plugins/api.js'
+                },
+                options: {
+                    replacements: [{
+                        pattern: /version = '\d+\.\d+\.\d+'/ig,
+                        replacement: function(match, p1) {
+                            return "version = '" + grunt.file.readJSON('package.json').version + "'";
+                        }
+                    }]
+                }
+            }
+        }
     });
 
 	grunt.registerTask('doc', function (target) {
@@ -197,14 +213,15 @@ module.exports = function (grunt) {
         ];
 
         grunt.task.run([
+            'bumpup',
+            'string-replace',
             'copy:modules',
             'clean:dist',
             'concat:preggieapi',
             'uglify',
             'clean:preggieapitmp',
             'usebanner:dist',
-            'create-loader',
-            'bumpup'
+            'create-loader'
         ]);
 
     });

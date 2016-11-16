@@ -1,6 +1,6 @@
 {
   "name": "momlife-extensions-js-api",
-  "version": "1.1.2",
+  "version": "1.2.1",
   "author": "Alexander Usolcev <alexander.usolcev@gmail.com>",
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-jsdoc": "^1.1.0",
-    "jsdoc3-bootstrap": "https://github.com/alexander-usolcev/jsdoc3-bootstrap/tarball/master",
+    "grunt-string-replace": "^1.3.1",
     "load-grunt-tasks": "^3.4.1",
     "time-grunt": "^1.3.0"
   },
@@ -29,6 +29,8 @@
   },
   "dependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "grunt dev",
+    "prod": "grunt build --production=true"
   }
 }
