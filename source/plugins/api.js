@@ -9,6 +9,17 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      */
     window.PREGGIEAPI = Modules;
 
+
+    /**
+     * Короткий alias для console.warn()
+     *
+     * @param message
+     */
+    function warn(message) {
+        console.warn(message);
+    }
+
+
     /**
      * Интерфейс, который реализует публичный API
      *
@@ -169,7 +180,7 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      *
      * @type {string}
      */
-    INTERFACE.prototype.version = '1.2.1';
+    INTERFACE.prototype.version = '1.2.2';
 
 
     /**
@@ -195,7 +206,7 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
                 value: null
             },
 
-            '_canExit': {
+            "canExitState": {
                 writable: true,
                 value: true
             }
@@ -441,12 +452,12 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      */
     API.prototype.canExit = function(state) {
         if (arguments.length > 0) {
-            this._canExit = !!state;
+            this.canExitState = !!state;
         }
 
-        this.deviceInterface().canExit(this._canExit);
+        this.deviceInterface().canExit(this.canExitState);
 
-        return this._canExit;
+        return this.canExitState;
     };
 
 
@@ -459,8 +470,12 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      * @return {*}
      */
     API.prototype.setTitle = function(title) {
-        if (title) {
-            this.deviceInterface().setTitle(title);
+        try {
+            if (title) {
+                this.deviceInterface().setTitle(title);
+            }
+        } catch (e) {
+            warn(e);
         }
 
         return title;
