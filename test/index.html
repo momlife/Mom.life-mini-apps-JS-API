@@ -1,135 +1,138 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<title>Test Preggie App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Test Preggie App</title>
 
 
-	<script src="../build/preggieapi.loader.js"></script>
+    <script src="../build/preggieapi.loader.js"></script>
 
-	<style>
-		.p {
-			margin: 1.5em 0;
-		}
-	</style>
+    <style>
+        .p {
+            margin: 1.5em 0;
+        }
+    </style>
 </head>
 <body>
 <div class="p">
-	<button onclick="alert('getCurrentUserId() -> ' + PREGGIEAPI.API.getCurrentUserId());">Получить id текущего
-		пользователя
-	</button>
+    <button onclick="alert('getCurrentUserId() -> ' + PREGGIEAPI.API.getCurrentUserId());">Получить id текущего
+        пользователя
+    </button>
 </div>
 
 <div class="p">
-	<input type="text" id="message" placeholder="Сообщение">
-	<button onclick="PREGGIEAPI.API.showToast(document.getElementById('message').value)">showToast</button>
+    <input type="text" id="message" placeholder="Сообщение">
+    <button onclick="PREGGIEAPI.API.showToast($('message').value)">showToast</button>
 </div>
 
 <div class="p">
-	<button id="upload">Загрузить файл</button>
-	<div id="uploadLog"></div>
-	<script>
-		var log = function(id) {
+    <input type="text" id="uploadUrl" placeholder="uploadUrl" value="">
+    <button id="upload">Загрузить файл</button>
+    <div id="uploadLog"></div>
+    <script>
+        function $(id) {
+            return document.getElementById(id);
+        }
 
-			return function(message) {
-				if (!message) {
-					document.getElementById(id).innerHTML = '';
+        function Log(id) {
+            return function(message) {
+                if (!message) {
+                    $(id).innerHTML = '';
 
-					return;
-				}
+                    return;
+                }
 
-				var span = document.createElement('div');
-				span.innerHTML = message;
+                var span = document.createElement('div');
+                span.innerHTML = message;
 
-				document.getElementById(id).appendChild(span);
+                $(id).appendChild(span);
 
-				return message;
-			}
-		};
+                return message;
+            }
+        }
 
-		document.getElementById('upload').onclick = function() {
-			var _log = log('uploadLog');
+        $('upload').onclick = function() {
+            var log = Log('uploadLog');
 
-			_log(null);
+            log(null);
 
-			PREGGIEAPI.API.upload('http://extension-consultation.preggie.testbb.ru/upload/file', {
-				progress: function(data) {
-					_log('upload progress=' + data.progress);
-				},
-				success: function(data) {
-					_log('success. name is ' + data.name);
+            PREGGIEAPI.API.upload($('uploadUrl').value || 'http://master.kernel.daria.testbb.ru/api/v1/file/upload', {
+                progress: function(data) {
+                    log('upload progress=' + data.progress);
+                },
+                success: function(data) {
+                    log('success. name is ' + data.name);
 
-				},
-				error: function(error) {
-					_log('Error: ' + JSON.stringify(error));
-				},
-				preview: function(base64) {
-					_log('base64 image is - <img src="data:image/gif;base64,' + base64 + '" />');
-				}
-			})
-		}
-	</script>
+                },
+                error: function(error) {
+                    log('Error: ' + JSON.stringify(error));
+                },
+                preview: function(base64) {
+                    log('base64 image is - <img src="data:image/gif;base64,' + base64 + '" />');
+                }
+            })
+        }
+    </script>
 </div>
 
 <div class="p">
-	<button onclick="alert('getAppId()->' + PREGGIEAPI.API.getAppId());">Получить AppId</button>
+    <button onclick="alert('getAppId()->' + PREGGIEAPI.API.getAppId());">Получить AppId</button>
 </div>
 
 <div class="p">
-	<button id="makePaiment">Совершить платеж в размере 100 рублей - makePaiment()</button>
-	<div id="makePaimentLog"></div>
-	<script>
-		document.getElementById('makePaiment').onclick = function() {
-			var _log = log('makePaimentLog');
+    <button id="makePaiment">Совершить платеж в размере 100 рублей - makePaiment()</button>
+    <div id="makePaimentLog"></div>
+    <script>
+        $('makePaiment').onclick = function() {
+            var log = Log('makePaimentLog');
 
-			PREGGIEAPI.API.makePayment(10000, {
-				success: function(data) {
-					_log('success. transaction_id is ' + data.transaction_id);
-				},
-				error: function(data) {
-					_log('error. statusText is ' + data.statusText);
-					_log('status is ' + data.status);
-				}
-			});
-		}
-	</script>
+            PREGGIEAPI.API.makePayment(10000, {
+                success: function(data) {
+                    log('success. transaction_id is ' + data.transaction_id);
+                },
+                error: function(error) {
+                    log('Error: ' + JSON.stringify(error));
+                }
+            });
+        }
+    </script>
 </div>
 
 
 <div class="p">
-	<button id="canExit">get canExit()</button>
-	<button id="canExitOff">set canExit() to false</button>
-	<button id="canExitOn">set canExit() to true</button>
-	<div id="canExitLog"></div>
+    <button id="canExit">get canExit()</button>
+    <button id="canExitOff">set canExit() to false</button>
+    <button id="canExitOn">set canExit() to true</button>
+    <div id="canExitLog"></div>
 
-	<script>
-		document.getElementById('canExit').onclick = function() {
-			var _log = log('canExitLog');
+    <script>
+        $('canExit').onclick = function() {
+            var log = Log('canExitLog');
 
-			_log('canExit() = ' + PREGGIEAPI.API.canExit());
-		};
+            log('canExit() = ' + PREGGIEAPI.API.canExit());
+        };
 
-		document.getElementById('canExitOff').onclick = function() {
-			var _log = log('canExitLog');
-
-
-			_log('canExit() = ' + PREGGIEAPI.API.canExit(false));
-		};
-
-		document.getElementById('canExitOn').onclick = function() {
-			var _log = log('canExitLog');
+        $('canExitOff').onclick = function() {
+            var log = Log('canExitLog');
 
 
-			_log('canExit() = ' + PREGGIEAPI.API.canExit(true));
-		}
+            log('canExit() = ' + PREGGIEAPI.API.canExit(false));
+        };
 
-	</script>
+        $('canExitOn').onclick = function() {
+            var log = Log('canExitLog');
+
+
+            log('canExit() = ' + PREGGIEAPI.API.canExit(true));
+        }
+
+    </script>
 </div>
 
 <div class="p">
-	<input type="text" id="title" placeholder="Title">
-	<button onclick="PREGGIEAPI.API.setTitle(document.getElementById('title').value)">setTitle</button>
+    <input type="text" id="title" placeholder="Title">
+    <button onclick="PREGGIEAPI.API.setTitle($('title').value)">setTitle</button>
 </div>
 
 </body>
