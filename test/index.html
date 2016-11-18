@@ -5,31 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Test Preggie App</title>
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <script src="../build/preggieapi.loader.js"></script>
 
     <style>
-        .p {
-            margin: 1.5em 0;
+        .content {
+            padding: 10px;
         }
     </style>
-</head>
-<body>
-<div class="p">
-    <button onclick="alert('getCurrentUserId() -> ' + PREGGIEAPI.API.getCurrentUserId());">Получить id текущего
-        пользователя
-    </button>
-</div>
 
-<div class="p">
-    <input type="text" id="message" placeholder="Сообщение">
-    <button onclick="PREGGIEAPI.API.showToast($('message').value)">showToast</button>
-</div>
-
-<div class="p">
-    <input type="text" id="uploadUrl" placeholder="uploadUrl" value="">
-    <button id="upload">Загрузить файл</button>
-    <div id="uploadLog"></div>
     <script>
         function $(id) {
             return document.getElementById(id);
@@ -51,89 +38,197 @@
                 return message;
             }
         }
-
-        $('upload').onclick = function() {
-            var log = Log('uploadLog');
-
-            log(null);
-
-            PREGGIEAPI.API.upload($('uploadUrl').value || 'http://master.kernel.daria.testbb.ru/api/v1/file/upload', {
-                progress: function(data) {
-                    log('upload progress=' + data.progress);
-                },
-                success: function(data) {
-                    log('success. name is ' + data.name);
-
-                },
-                error: function(error) {
-                    log('Error: ' + JSON.stringify(error));
-                },
-                preview: function(base64) {
-                    log('base64 image is - <img src="data:image/gif;base64,' + base64 + '" />');
-                }
-            })
-        }
     </script>
+</head>
+<body>
+
+<div class="content">
+
+    <h1>API</h1>
+
+    <div class="form-group">
+        <div>
+            <strong>Получить id текущего пользователя.</strong>
+        </div>
+        <button class="btn btn-primary" type="button" onclick="alert('getCurrentUserId() -> ' + PREGGIEAPI.API.getCurrentUserId());">
+            getCurrentUserId()
+        </button>
+    </div>
+
+
+    <div class="form-group">
+        <label for="message">Вызвать метод showToast()</label>
+        <div class="input-group">
+            <input type="text" class="form-control" id="message" aria-describedby="basic-addon3" placeholder="Сообщение...">
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.showToast($('message').value)">
+                showToast()
+            </button>
+        </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="uploadUrl">Загрузить файл</label>
+        <div class="input-group">
+            <input type="text" class="form-control" id="uploadUrl" aria-describedby="basic-addon3" placeholder="uploadUrl...">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.showToast($('message').value)" id="upload">
+                    upload()
+                </button>
+            </span>
+        </div>
+
+        <div id="uploadLog"></div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <strong>Получить AppId.</strong>
+        </div>
+        <button class="btn btn-primary" type="button" onclick="alert('getAppId()->' + PREGGIEAPI.API.getAppId());">
+            getAppId()
+        </button>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <strong>Совершить платеж в размере 100 рублей.</strong>
+        </div>
+        <button id="makePaiment" class="btn btn-primary" type="button" onclick="alert('getAppId()->' + PREGGIEAPI.API.getAppId());">
+            makePaiment()
+        </button>
+
+        <div id="makePaimentLog"></div>
+    </div>
+
+
+    <div class="form-group">
+        <div>
+            <strong>canExit().</strong>
+        </div>
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" id="canExit">canExit()</button>
+            <button type="button" class="btn btn-default" id="canExitOff">canExit(false)</button>
+            <button type="button" class="btn btn-default" id="canExitOn">canExit(true)</button>
+        </div>
+
+        <div id="canExitLog"></div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="title">Вызвать метод setTitle()</label>
+        <div class="input-group">
+            <input type="text" class="form-control" id="title" aria-describedby="basic-addon3" placeholder="Новый title...">
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.setTitle($('title').value)">
+                setTitle()
+            </button>
+        </span>
+        </div>
+    </div>
+
+
+    <h1>History</h1>
+
+    <div class="form-group">
+        <p id="currentState">
+            Current state is: null<br>
+            Page url is: <script>document.write(location.href)</script>
+        </p>
+        <p>
+            <a onclick="return pushState({data: 'first-page-data'}, './first-page');">
+                Переход на страницу /first-page
+            </a>
+        </p>
+
+        <p>
+            <a onclick="return pushState({data: 'second-page-data'}, './second-page');">
+                Переход на страницу /second-page
+            </a>
+        </p>
+
+        <p>
+            <a onclick="return pushState({data: 'third-page-data'}, './third-page');">
+                Переход на страницу /third-page
+            </a>
+        </p>
+    </div>
 </div>
 
-<div class="p">
-    <button onclick="alert('getAppId()->' + PREGGIEAPI.API.getAppId());">Получить AppId</button>
-</div>
+<script>
+    $('upload').onclick = function() {
+        var log = Log('uploadLog');
 
-<div class="p">
-    <button id="makePaiment">Совершить платеж в размере 100 рублей - makePaiment()</button>
-    <div id="makePaimentLog"></div>
-    <script>
-        $('makePaiment').onclick = function() {
-            var log = Log('makePaimentLog');
+        log(null);
 
-            PREGGIEAPI.API.makePayment(10000, {
-                success: function(data) {
-                    log('success. transaction_id is ' + data.transaction_id);
-                },
-                error: function(error) {
-                    log('Error: ' + JSON.stringify(error));
-                }
-            });
-        }
-    </script>
-</div>
+        PREGGIEAPI.API.upload($('uploadUrl').value || 'http://master.kernel.daria.testbb.ru/api/v1/file/upload', {
+            progress: function(data) {
+                log('upload progress=' + data.progress);
+            },
+            success: function(data) {
+                log('success. name is ' + data.name);
 
+            },
+            error: function(error) {
+                log('Error: ' + JSON.stringify(error));
+            },
+            preview: function(base64) {
+                log('base64 image is - <img src="data:image/gif;base64,' + base64 + '" />');
+            }
+        })
+    };
 
-<div class="p">
-    <button id="canExit">get canExit()</button>
-    <button id="canExitOff">set canExit() to false</button>
-    <button id="canExitOn">set canExit() to true</button>
-    <div id="canExitLog"></div>
+    $('makePaiment').onclick = function() {
+        var log = Log('makePaimentLog');
 
-    <script>
-        $('canExit').onclick = function() {
-            var log = Log('canExitLog');
-
-            log('canExit() = ' + PREGGIEAPI.API.canExit());
-        };
-
-        $('canExitOff').onclick = function() {
-            var log = Log('canExitLog');
+        PREGGIEAPI.API.makePayment(10000, {
+            success: function(data) {
+                log('success. transaction_id is ' + data.transaction_id);
+            },
+            error: function(error) {
+                log('Error: ' + JSON.stringify(error));
+            }
+        });
+    };
 
 
-            log('canExit() = ' + PREGGIEAPI.API.canExit(false));
-        };
+    $('canExit').onclick = function() {
+        var log = Log('canExitLog');
 
-        $('canExitOn').onclick = function() {
-            var log = Log('canExitLog');
+        log('canExit() = ' + PREGGIEAPI.API.canExit());
+    };
+
+    $('canExitOff').onclick = function() {
+        var log = Log('canExitLog');
 
 
-            log('canExit() = ' + PREGGIEAPI.API.canExit(true));
-        }
+        log('canExit() = ' + PREGGIEAPI.API.canExit(false));
+    };
 
-    </script>
-</div>
+    $('canExitOn').onclick = function() {
+        var log = Log('canExitLog');
 
-<div class="p">
-    <input type="text" id="title" placeholder="Title">
-    <button onclick="PREGGIEAPI.API.setTitle($('title').value)">setTitle</button>
-</div>
 
+        log('canExit() = ' + PREGGIEAPI.API.canExit(true));
+    }
+</script>
+
+<script>
+    function updateLog(state) {
+        $('currentState').innerHTML = 'Current state is: ' + JSON.stringify(state) + ';<br> Page url is: ' + document.location.href;
+    }
+
+    window.onpopstate = function(event) {
+        updateLog(event.state);
+    };
+
+    function pushState(state, url) {
+        history.pushState(state, '', url);
+
+        updateLog(state);
+    }
+</script>
 </body>
 </html>
