@@ -218,6 +218,8 @@
 <script>
     function updateLog(state) {
         $('currentState').innerHTML = 'Current state is: ' + JSON.stringify(state) + ';<br> Page url is: ' + document.location.href;
+
+        PREGGIEAPI.API.setTitle('Title of ' + (state ? state.data : 'index') + ' page');
     }
 
     window.onpopstate = function(event) {
