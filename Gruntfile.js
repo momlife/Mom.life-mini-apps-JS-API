@@ -115,7 +115,13 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     position: 'top',
-                    banner: '/*! <%= pkg.name %> | <%= grunt.template.today("yyyy-mm-dd") %> */'
+                    banner: '/*! \n' +
+                    ' * <%= pkg.name %> v' + grunt.file.readJSON('package.json').version + '\n' +
+                    ' * \n' +
+                    ' * Author: ' + grunt.file.readJSON('package.json').author + '\n' +
+                    ' * Date: ' + new Date().toLocaleString() + '\n' +
+                    ' * \n' +
+                    ' */'
                 },
                 files: {
                     src: [ '<%= globalConfig.buildPath %>/preggieapi.min.js' ]
