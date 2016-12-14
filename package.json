@@ -10,7 +10,6 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-banner": "^0.6.0",
-    "grunt-bumpup": "^0.6.2",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
@@ -31,6 +30,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "grunt dev",
-    "prod": "grunt build --production=true"
+    "prod": "npm version patch && grunt build --production=true"
   }
 }

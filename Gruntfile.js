@@ -26,8 +26,6 @@ module.exports = function (grunt) {
     grunt.initConfig({
         globalConfig: globalConfig,
 
-        bumpup: 'package.json',
-
         pkg: grunt.file.readJSON('package.json'),
 
 
@@ -219,7 +217,6 @@ module.exports = function (grunt) {
         ];
 
         grunt.task.run([
-            'bumpup',
             'string-replace',
             'copy:modules',
             'clean:dist',
