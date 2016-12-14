@@ -180,7 +180,7 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      *
      * @type {string}
      */
-    INTERFACE.prototype.version = '1.2.2';
+    INTERFACE.prototype.version = '1.2.3';
 
 
     /**
