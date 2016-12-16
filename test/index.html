@@ -203,7 +203,7 @@
 
         PREGGIEAPI.API.makePayment(10000, {
             success: function(data) {
-                log('success. transaction_id is ' + data.transaction_id);
+                log('Success: ' + JSON.stringify(data));
             },
             error: function(error) {
                 log('Error: ' + JSON.stringify(error));
