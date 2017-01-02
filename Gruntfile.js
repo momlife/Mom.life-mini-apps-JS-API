@@ -28,6 +28,8 @@ module.exports = function (grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        bumpup: 'package.json',
+
         // Сервер для grunt-watch
         connect: {
             server: {
