@@ -28,14 +28,37 @@ module.exports = function (grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        // Сервер для grunt-watch
+        connect: {
+            server: {
+                options: {
+                    hostname: '*',
+                    base: './',
+                    port: 9000,
+                    livereload: true
+                }
+            }
+        },
+
+        open: {
+            dev: {
+                path: 'http://localhost:9000/test/'
+            }
+        },
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
-            js: {
-                //files: ['<%= yeoman.dist %>/js/*.js'],
-                files: ['<%= yeoman.sourcePREGGIEAPIPath %>/**/*.js'],
-                tasks: ['build']
+            scripts: {
+                files: [
+                    '<%= globalConfig.sourcePath %>/**/*.js',
+
+                    './test/index.html'
+                ],
+                options: {
+                    livereload: true
+                }
             },
+
             gruntfile: {
                 files: ['Gruntfile.js']
             }
@@ -151,7 +174,21 @@ module.exports = function (grunt) {
                     }]
                 }
             }
-        }
+        },
+
+        dev_prod_switch: {
+            options: {
+                environment: grunt.option('env') || 'prod',
+                env_char: '#',
+                env_block_dev: 'env:dev',
+                env_block_prod: 'env:prod'
+            },
+            all: {
+                files: {
+                    './test/index.html': './test/index.html'
+                }
+            }
+        },
     });
 
 	grunt.registerTask('doc', function (target) {
@@ -230,6 +267,16 @@ module.exports = function (grunt) {
             'create-loader'
         ]);
 
+    });
+
+
+    // Task для dev разработки - автоматически перезагружает браузер при изменении файлов
+    grunt.registerTask('dev', function(target) {
+        grunt.task.run([
+            'connect',
+            'open:dev',
+            'watch'
+        ]);
     });
 
 

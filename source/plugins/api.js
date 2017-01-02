@@ -77,7 +77,7 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
         }).then(function(data) {
             window[options.success]({token: data['auth-token']});
         }).catch(function(error) {
-            window[options.error]({status: 101, statusText: 'getAuthToken error; ' + JSON.stringify(error)});
+            window[options.error]({status: 101, statusText: 'getAuthToken error', errorMessage: error.message});
         });
     };
 
