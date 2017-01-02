@@ -167,15 +167,18 @@ module.exports = function (grunt) {
 
         // read all subdirectories from modules folder
         grunt.file.expand([
+            './node_modules/whatwg-fetch/fetch.js',
             globalConfig.sourcePath + '/*.js',
             globalConfig.sourcePath + '/plugins/*.js',
-            globalConfig.sourcePath + '/plugins/vendor/*.js'
         ]).forEach(function (file) {
             plugins.push('"' + file + '"\n');
         });
 
         // the file loader.js
         var content = function(){
+
+            window.ENV = 'development';
+            window.DEBUG = true;
 
             var plugins = ['%plugins%'];
 
@@ -211,9 +214,9 @@ module.exports = function (grunt) {
     // Set build task. Main task
     grunt.registerTask('build', function() {
         globalConfig.filesToBuild = [
+            './node_modules/whatwg-fetch/fetch.js',
             globalConfig.sourcePath + '/modules.js',
-            globalConfig.sourcePath + '/plugins/*.js',
-            globalConfig.sourcePath + '/plugins/vendor/*.js'
+            globalConfig.sourcePath + '/plugins/*.js'
         ];
 
         grunt.task.run([

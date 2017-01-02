@@ -179,6 +179,17 @@
         </p>
 
     </div>
+
+    <h1>Backend</h1>
+
+    <div class="form-group">
+        <div>
+            <strong>/auth/preggie/bind</strong>
+        </div>
+        <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.getAuthToken({success: function(token) { alert('token is ' + token); }});">
+            getAuthToken()
+        </button>
+    </div>
 </div>
 
 <script>

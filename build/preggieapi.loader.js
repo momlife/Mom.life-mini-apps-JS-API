@@ -1,6 +1,10 @@
 (function (){
 
-            var plugins = ["source/modules.js"
+            window.ENV = 'development';
+            window.DEBUG = true;
+
+            var plugins = ["./node_modules/whatwg-fetch/fetch.js"
+,"source/modules.js"
 ,"source/plugins/api.js"
 ,"source/plugins/date.js"
 ,"source/plugins/device.js"
