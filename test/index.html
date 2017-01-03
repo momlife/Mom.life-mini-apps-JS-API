@@ -10,12 +10,12 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- for development -->
-    <!-- env:dev -->
+    <!-- env:dev --#>
         <script src="../build/preggieapi.loader.js"></script>
     <!-- env:dev:end -->
 
     <!-- for production -->
-    <!-- env:prod --#>
+    <!-- env:prod -->
         <script src="../build/preggieapi.min.js"></script>
     <!-- env:prod:end -->
 
@@ -199,6 +199,19 @@
         <button class="btn btn-primary" type="button" id="getAuthToken">
             getAuthToken()
         </button>
+
+        <div id="getAuthTokenLog"></div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <strong>/extension/internal/$extension_id/user</strong>
+        </div>
+        <button class="btn btn-primary" type="button" id="getUser">
+            getUser()
+        </button>
+
+        <div id="getUserLog"></div>
     </div>
 </div>
 
@@ -260,15 +273,30 @@
     };
 
     $('getAuthToken').onclick = function() {
+        var log = Log('getAuthTokenLog');
+
         PREGGIEAPI.API.getAuthToken({
             success: function(token) {
-                alert('token is ' + token);
+                log(null);
+                log(token);
             },
 
             error: function(error) {
                 alert('error: ' + JSON.stringify(error))
             }
         })
+    };
+
+    $('getUser').onclick = function() {
+        var log = Log('getUserLog');
+
+        fetch(PREGGIEAPI.API.API_HOST + '/extension/getUser?user_id=' + PREGGIEAPI.API.getCurrentUserId())
+            .then(function(response) {
+                return response.json();
+            }).then(function(user) {
+                log(null);
+                log(JSON.stringify(user, null, '\t'))
+            });
     };
 </script>
 

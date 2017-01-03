@@ -195,7 +195,14 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      *
      * @type {string}
      */
-    INTERFACE.prototype.version = '1.3.4';
+    INTERFACE.prototype.version = '1.3.5';
+
+    /**
+     * API HOST
+     *
+     * @type {string}
+     */
+    INTERFACE.prototype.API_HOST = API_HOST;
 
 
     /**
