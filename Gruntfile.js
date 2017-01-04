@@ -190,7 +190,7 @@ module.exports = function (grunt) {
                     './test/index.html': './test/index.html'
                 }
             }
-        },
+        }
     });
 
 	grunt.registerTask('doc', function (target) {

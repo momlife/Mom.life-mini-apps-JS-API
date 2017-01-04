@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <!-- for development -->
     <!-- env:dev --#>
         <script src="../build/preggieapi.loader.js"></script>
@@ -26,22 +28,17 @@
     </style>
 
     <script>
-        function $(id) {
-            return document.getElementById(id);
-        }
-
         function Log(id) {
             return function(message) {
                 if (!message) {
-                    $(id).innerHTML = '';
+                    $('#' + id).html('');
 
                     return;
                 }
 
-                var span = document.createElement('div');
-                span.innerHTML = message;
+                var span = $('<div>' + message + '</div>');
 
-                $(id).appendChild(span);
+                $('#' + id).append(span);
 
                 return message;
             }
@@ -71,7 +68,7 @@
         <div class="input-group">
             <input type="text" class="form-control" id="message" aria-describedby="basic-addon3" placeholder="Сообщение...">
             <span class="input-group-btn">
-            <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.showToast($('message').value)">
+            <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.showToast($('#message').val())">
                 showToast()
             </button>
         </span>
@@ -83,7 +80,7 @@
         <div class="input-group">
             <input type="text" class="form-control" id="uploadUrl" aria-describedby="basic-addon3" placeholder="uploadUrl...">
             <span class="input-group-btn">
-                <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.showToast($('message').value)" id="upload">
+                <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.showToast($('#message').val())" id="upload">
                     upload()
                 </button>
             </span>
@@ -132,7 +129,7 @@
         <div class="input-group">
             <input type="text" class="form-control" id="title" aria-describedby="basic-addon3" placeholder="Новый title...">
             <span class="input-group-btn">
-            <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.setTitle($('title').value)">
+            <button class="btn btn-primary" type="button" onclick="PREGGIEAPI.API.setTitle($('#title').val())">
                 setTitle()
             </button>
         </span>
@@ -190,38 +187,16 @@
 
     </div>
 
-    <h1>Backend</h1>
-
-    <div class="form-group">
-        <div>
-            <strong>/auth/preggie/bind</strong>
-        </div>
-        <button class="btn btn-primary" type="button" id="getAuthToken">
-            getAuthToken()
-        </button>
-
-        <div id="getAuthTokenLog"></div>
-    </div>
-
-    <div class="form-group">
-        <div>
-            <strong>/extension/internal/$extension_id/user</strong>
-        </div>
-        <button class="btn btn-primary" type="button" id="getUser">
-            getUser()
-        </button>
-
-        <div id="getUserLog"></div>
-    </div>
+    <div id="additional-buttons"></div>
 </div>
 
 <script>
-    $('upload').onclick = function() {
+    $('#upload').on('click', function() {
         var log = Log('uploadLog');
 
         log(null);
 
-        PREGGIEAPI.API.upload($('uploadUrl').value || 'http://master.kernel.daria.testbb.ru/api/v1/file/upload', {
+        PREGGIEAPI.API.upload($('#' + 'uploadUrl').value || 'http://master.kernel.daria.testbb.ru/api/v1/file/upload', {
             progress: function(data) {
                 log('upload progress=' + data.progress);
             },
@@ -236,9 +211,9 @@
                 log('base64 image is - <img src="data:image/gif;base64,' + base64 + '" />');
             }
         })
-    };
+    });
 
-    $('makePaiment').onclick = function() {
+    $('#makePaiment').on('click', function() {
         var log = Log('makePaimentLog');
 
         PREGGIEAPI.API.makePayment(10000, {
@@ -249,60 +224,35 @@
                 log('Error: ' + JSON.stringify(error));
             }
         });
-    };
+    });
 
 
-    $('canExit').onclick = function() {
+    $('#canExit').on('click', function() {
         var log = Log('canExitLog');
 
         log('canExit() = ' + PREGGIEAPI.API.canExit());
-    };
+    });
 
-    $('canExitOff').onclick = function() {
+    $('#canExitOff').on('click', function() {
         var log = Log('canExitLog');
 
 
         log('canExit() = ' + PREGGIEAPI.API.canExit(false));
-    };
+    });
 
-    $('canExitOn').onclick = function() {
+    $('#canExitOn').on('click', function() {
         var log = Log('canExitLog');
 
 
         log('canExit() = ' + PREGGIEAPI.API.canExit(true));
-    };
+    });
 
-    $('getAuthToken').onclick = function() {
-        var log = Log('getAuthTokenLog');
-
-        PREGGIEAPI.API.getAuthToken({
-            success: function(token) {
-                log(null);
-                log(token);
-            },
-
-            error: function(error) {
-                alert('error: ' + JSON.stringify(error))
-            }
-        })
-    };
-
-    $('getUser').onclick = function() {
-        var log = Log('getUserLog');
-
-        fetch(PREGGIEAPI.API.API_HOST + '/extension/getUser?user_id=' + PREGGIEAPI.API.getCurrentUserId())
-            .then(function(response) {
-                return response.json();
-            }).then(function(user) {
-                log(null);
-                log(JSON.stringify(user, null, '\t'))
-            });
-    };
+    $('#additional-buttons').load(PREGGIEAPI.API.API_HOST + '/api/v1/getAdditionalButtons');
 </script>
 
 <script>
     function updateLog(state) {
-        $('currentState').innerHTML = 'Current state is: ' + JSON.stringify(state) + ';<br> Page url is: ' + document.location.href;
+        $('#currentState').html('Current state is: ' + JSON.stringify(state) + ';<br> Page url is: ' + document.location.href);
 
         PREGGIEAPI.API.setTitle('Title of ' + (state ? state.data : 'index') + ' page');
     }
