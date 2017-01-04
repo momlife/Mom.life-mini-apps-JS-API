@@ -170,7 +170,7 @@ module.exports = function (grunt) {
                 options: {
                     replacements: [{
                         pattern: /version = '\d+\.\d+\.\d+'/ig,
-                        replacement: function(match, p1) {
+                        replacement: function() {
                             return "version = '" + grunt.file.readJSON('package.json').version + "'";
                         }
                     }]
@@ -193,7 +193,7 @@ module.exports = function (grunt) {
         }
     });
 
-	grunt.registerTask('doc', function (target) {
+	grunt.registerTask('doc', function () {
 		grunt.task.run([
 			'jsdoc'
 		]);
@@ -206,9 +206,8 @@ module.exports = function (grunt) {
 
         // read all subdirectories from modules folder
         grunt.file.expand([
-            './node_modules/whatwg-fetch/fetch.js',
             globalConfig.sourcePath + '/*.js',
-            globalConfig.sourcePath + '/plugins/*.js',
+            globalConfig.sourcePath + '/plugins/*.js'
         ]).forEach(function (file) {
             plugins.push('"' + file + '"\n');
         });
@@ -253,7 +252,6 @@ module.exports = function (grunt) {
     // Set build task. Main task
     grunt.registerTask('build', function() {
         globalConfig.filesToBuild = [
-            './node_modules/whatwg-fetch/fetch.js',
             globalConfig.sourcePath + '/modules.js',
             globalConfig.sourcePath + '/plugins/*.js'
         ];
@@ -273,7 +271,7 @@ module.exports = function (grunt) {
 
 
     // Task для dev разработки - автоматически перезагружает браузер при изменении файлов
-    grunt.registerTask('dev', function(target) {
+    grunt.registerTask('dev', function() {
         grunt.task.run([
             'connect',
             'open:dev',
