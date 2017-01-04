@@ -4,7 +4,7 @@
   "author": "Alexander Usolcev <alexander.usolcev@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/momlife/extensions-js-api.git"
+    "url": "git+https://bitbucket.org/momlife/momlife-extensions-js-api.git"
   },
   "license": "MIT",
   "devDependencies": {
@@ -29,7 +29,7 @@
     "whatwg-fetch": "^2.0.1"
   },
   "description": "JavaScript библиотека для работы с mom.life APP (нативное приложение mom.life)",
-  "homepage": "https://bitbucket.org/momlife/extensions-js-api#readme",
+  "homepage": "https://bitbucket.org/momlife/momlife-extensions-js-api#readme",
   "main": "build/preggieapi.min.js",
   "directories": {
     "test": "test"

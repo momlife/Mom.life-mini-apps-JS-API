@@ -6,8 +6,8 @@ Below you can become familiar with description of connection and use "mom.life e
 # Connection
 Download\ clone project from bitbucket.
  
-- git clone git@bitbucket.org:momlife/extensions-js-api.git
-- https://bitbucket.org/momlife/extensions-js-api
+- git clone git@bitbucket.org:momlife/momlife-extensions-js-api.git
+- https://bitbucket.org/momlife/momlife-extensions-js-api
 
 or you can install via npm:
 
@@ -22,7 +22,7 @@ Create html page with connected js-api:
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <title>Test mom.life App</title>
     
-        <script src="path-to-mom-life-extensions-js-api/build/preggieapi.min.js"></script>        
+        <script src="path-to-momlife-extensions-js-api/build/preggieapi.min.js"></script>        
     </head>
     <body>
     <p>

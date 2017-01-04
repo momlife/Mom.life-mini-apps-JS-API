@@ -6,8 +6,8 @@
 # Подключение
 Скачать\склонировать с bitbucket проект.
  
-- git clone git@bitbucket.org:momlife/extensions-js-api.git
-- https://bitbucket.org/momlife/extensions-js-api
+- git clone git@bitbucket.org:momlife/momlife-extensions-js-api.git
+- https://bitbucket.org/momlife/momlife-extensions-js-api
 
 Или вы можете установить через npm:
 
