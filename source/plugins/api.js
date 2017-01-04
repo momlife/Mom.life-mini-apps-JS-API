@@ -9,8 +9,6 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      */
     window.PREGGIEAPI = Modules;
 
-    var API_HOST = DEBUG ? 'http://localhost:3000' : 'https://js-api.ext.mom.life';
-
 
     /**
      * Короткий alias для console.warn()
@@ -62,23 +60,9 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
 
         options = JSON.parse(options);
 
+        window[options.success]({token: 'JWT ' + 'some token...'});
 
-        fetch(API_HOST + '/auth/preggie/bind', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                preggie_id: '123456789',
-                login: 'some-login',
-            })
-        }).then(function(response) {
-            return response.json();
-        }).then(function(data) {
-            window[options.success]({token: data['auth-token']});
-        }).catch(function(error) {
-            window[options.error]({status: 101, statusText: 'getAuthToken error', errorMessage: error.message});
-        });
+        //window[options.error]({status: 101, statusText: 'getAuthToken error'});
     };
 
 
@@ -195,14 +179,14 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      *
      * @type {string}
      */
-    INTERFACE.prototype.version = '1.5.2';
+    INTERFACE.prototype.version = '1.5.3';
 
     /**
      * API HOST
      *
      * @type {string}
      */
-    INTERFACE.prototype.API_HOST = API_HOST;
+    INTERFACE.prototype.API_HOST = DEBUG ? 'http://localhost:3000' : 'https://js-api.ext.mom.life';
 
 
     /**

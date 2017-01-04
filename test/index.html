@@ -247,7 +247,42 @@
         log('canExit() = ' + PREGGIEAPI.API.canExit(true));
     });
 
-    $('#additional-buttons').load(PREGGIEAPI.API.API_HOST + '/api/v1/getAdditionalButtons?user_id=' + PREGGIEAPI.API.getCurrentUserId());
+    $('#additional-buttons').load(PREGGIEAPI.API.API_HOST + '/api/v1/getAdditionalButtons?user_id=' + PREGGIEAPI.API.getCurrentUserId(), function() {
+        $('#getAuthToken').on('click', function() {
+            var log = Log('getAuthTokenLog');
+
+            fetch(PREGGIEAPI.API.API_HOST + '/api/v1/authBind?user_id=' + PREGGIEAPI.API.getCurrentUserId(), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    preggie_id: '123456789',
+                    login: 'some-login'
+                })
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                log(null);
+                log(data['auth-token']);
+            }).catch(function(error) {
+                alert('error: ' + JSON.stringify(error))
+            });
+        });
+
+        $('#getUser').on('click', function() {
+            var log = Log('getUserLog');
+
+            fetch(PREGGIEAPI.API.API_HOST + '/api/v1/getUser?user_id=' + PREGGIEAPI.API.getCurrentUserId())
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(user) {
+                    log(null);
+                    log(JSON.stringify(user, null, '\t'))
+                });
+        });
+    });
 </script>
 
 <script>
