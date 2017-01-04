@@ -247,7 +247,7 @@
         log('canExit() = ' + PREGGIEAPI.API.canExit(true));
     });
 
-    $('#additional-buttons').load(PREGGIEAPI.API.API_HOST + '/api/v1/getAdditionalButtons');
+    $('#additional-buttons').load(PREGGIEAPI.API.API_HOST + '/api/v1/getAdditionalButtons?user_id=' + PREGGIEAPI.API.getCurrentUserId());
 </script>
 
 <script>
