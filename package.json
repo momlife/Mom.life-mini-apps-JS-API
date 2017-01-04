@@ -35,6 +35,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "grunt --env=dev dev_prod_switch && grunt dev",
-    "prod": "grunt bumpup && grunt dev_prod_switch && grunt build --production=true",
+    "prod": "grunt bumpup && grunt dev_prod_switch && grunt build --production=true"
   }
 }
