@@ -170,6 +170,20 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * MOCK. Описание методов публичного API
      */
+    INTERFACE.prototype.shareImage = function(url) {
+        alert('shareImage -> ' + url);
+    };
+
+    /**
+     * MOCK. Описание методов публичного API
+     */
+    INTERFACE.prototype.shareUrl = function(url) {
+        alert('shareUrl -> ' + url);
+    };
+
+    /**
+     * MOCK. Описание методов публичного API
+     */
     INTERFACE.prototype.isDevice = function() {
         return !!(window.Android || window.iOS);
     };
@@ -179,7 +193,7 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      *
      * @type {string}
      */
-    INTERFACE.prototype.version = '1.5.4';
+    INTERFACE.prototype.version = '1.6.0';
 
     /**
      * API HOST
@@ -485,6 +499,26 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
         }
 
         return title;
+    };
+
+    /**
+     * Метод "поделится" изображением.
+     *
+     * @example Modules.API.shareImage('http://domain.com/image.jpeg');
+     * @return {String}
+     */
+    API.prototype.shareImage = function(url) {
+        return this.deviceInterface().shareImage(url);
+    };
+
+    /**
+     * Метод "поделится" ссылкой.
+     *
+     * @example Modules.API.shareUrl('https://www.google.cz/');
+     * @return {String}
+     */
+    API.prototype.shareUrl = function(url) {
+        return this.deviceInterface().shareUrl(url);
     };
 
 
