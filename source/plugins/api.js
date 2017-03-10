@@ -193,7 +193,7 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      *
      * @type {string}
      */
-    INTERFACE.prototype.version = '1.6.0';
+    INTERFACE.prototype.version = '1.6.1';
 
     /**
      * API HOST
@@ -521,6 +521,16 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
         return this.deviceInterface().shareUrl(url);
     };
 
+
+    for (var i in API.prototype) {
+        if (API.prototype.hasOwnProperty(i)) {
+            API.prototype[i].supported = (function(i, self) {
+                return function() {
+                    return !!(self.API.deviceInterface() && self.API.deviceInterface()[i]);
+                }
+            })(i, this);
+        }
+    }
 
     return this.publicateAPI("API", new API());
 });
