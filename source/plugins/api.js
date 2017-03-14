@@ -184,6 +184,13 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * MOCK. Описание методов публичного API
      */
+    INTERFACE.prototype.getHostAppVersion = function() {
+        return '4.5.6';
+    };
+
+    /**
+     * MOCK. Описание методов публичного API
+     */
     INTERFACE.prototype.isDevice = function() {
         return !!(window.Android || window.iOS);
     };
@@ -191,9 +198,12 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
     /**
      * MOCK. Описание методов публичного API
      *
-     * @type {string}
      */
-    INTERFACE.prototype.version = '1.6.1';
+    INTERFACE.prototype.getApiVersion = function() {
+        var version = '1.7.0';
+
+        return version;
+    };
 
     /**
      * API HOST
@@ -519,6 +529,16 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      */
     API.prototype.shareUrl = function(url) {
         return this.deviceInterface().shareUrl(url);
+    };
+
+    /**
+     * Метод получения версии mom.life приложения.
+     *
+     * @example Modules.API.getHostAppVersion();
+     * @return {String}
+     */
+    API.prototype.getHostAppVersion = function() {
+        return this.deviceInterface().getHostAppVersion();
     };
 
 

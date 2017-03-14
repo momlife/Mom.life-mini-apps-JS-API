@@ -49,9 +49,18 @@
 
 <div class="content">
 
-    API version: <b><script>document.write(PREGGIEAPI.API.version)</script></b>
+    API version: <b><script>document.write(PREGGIEAPI.API.getApiVersion())</script></b>
 
     <h1>API</h1>
+
+    <div class="form-group">
+        <div>
+            <strong>Получить версию приложения mom.life.</strong>
+        </div>
+        <button class="btn btn-primary" type="button" onclick="alert('getHostAppVersion() -> ' + PREGGIEAPI.API.getHostAppVersion());">
+            getHostAppVersion()
+        </button>
+    </div>
 
     <div class="form-group">
         <div>
