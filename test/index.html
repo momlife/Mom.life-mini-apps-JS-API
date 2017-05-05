@@ -111,11 +111,11 @@
         <div>
             <strong>Совершить платеж в размере 100 рублей.</strong>
         </div>
-        <button id="makePaiment" class="btn btn-primary" type="button">
-            makePaiment()
+        <button id="makePayment" class="btn btn-primary" type="button">
+            makePayment()
         </button>
 
-        <div id="makePaimentLog"></div>
+        <div id="makePaymentLog"></div>
     </div>
 
 
@@ -261,8 +261,8 @@
         })
     });
 
-    $('#makePaiment').on('click', function() {
-        var log = Log('makePaimentLog');
+    $('#makePayment').on('click', function() {
+        var log = Log('makePaymentLog');
 
         PREGGIEAPI.API.makePayment(10000, {
             success: function(data) {
