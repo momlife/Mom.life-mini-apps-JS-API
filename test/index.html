@@ -109,7 +109,7 @@
 
     <div class="form-group">
         <div>
-            <strong>Совершить платеж в размере 100 рублей.</strong>
+            <strong>Совершить платеж в размере 10 рублей.</strong>
         </div>
         <button id="makePayment" class="btn btn-primary" type="button">
             makePayment()
@@ -264,7 +264,7 @@
     $('#makePayment').on('click', function() {
         var log = Log('makePaymentLog');
 
-        PREGGIEAPI.API.makePayment(10000, {
+        PREGGIEAPI.API.makePayment(1000, {
             success: function(data) {
                 log('Success: ' + JSON.stringify(data));
             },
