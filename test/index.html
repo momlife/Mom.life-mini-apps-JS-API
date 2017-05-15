@@ -37,7 +37,7 @@
             var isIOS = Modules.device.os.ios();
 
             // В iOS версии "4.5.1" и в Android версии "4.5.2" были исправлены баги с платежами.
-            return !PREGGIEAPI.API.getHostAppVersion.supported() || (isIOS && getHostAppVersion() <= 451) || getHostAppVersion() <= 452;
+            return !PREGGIEAPI.API.getHostAppVersion.supported() || (isIOS && getHostAppVersion() < 451) || getHostAppVersion() < 452;
         }
 
         function Log(id) {
