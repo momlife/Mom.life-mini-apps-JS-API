@@ -28,6 +28,18 @@
     </style>
 
     <script>
+
+        function getHostAppVersion() {
+            return parseInt(PREGGIEAPI.API.getHostAppVersion().split('.').join(''));
+        }
+
+        function isNeedToUpdateHostApp() {
+            var isIOS = Modules.device.os.ios();
+
+            // В iOS версии "4.5.1" и в Android версии "4.5.2" были исправлены баги с платежами.
+            return !PREGGIEAPI.API.getHostAppVersion.supported() || (isIOS && getHostAppVersion() <= 451) || getHostAppVersion() <= 452;
+        }
+
         function Log(id) {
             return function(message) {
                 if (!message) {
@@ -71,6 +83,15 @@
         </button>
     </div>
 
+
+    <div class="form-group">
+        <div>
+            <strong>isNeedToUpdateHostApp</strong>
+        </div>
+        <button class="btn btn-primary" type="button" onclick="alert('isNeedToUpdateHostApp() -> ' + isNeedToUpdateHostApp());">
+            isNeedToUpdateHostApp()
+        </button>
+    </div>
 
     <div class="form-group">
         <label for="message">Вызвать метод showToast()</label>
