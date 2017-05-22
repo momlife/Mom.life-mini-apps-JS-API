@@ -238,6 +238,18 @@
             </a>
         </p>
 
+        <div class="form-group" id="own-deep-link-container">
+            <label for="own-deep-link">Создать свой deep link</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="own-deep-link" placeholder="Ссылка вида <a href='...'>Some deep text</a>">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" id="createDeepLink">
+                        create()
+                    </button>
+                </span>
+            </div>
+        </div>
+
     </div>
 
     <div id="additional-buttons"></div>
@@ -298,6 +310,10 @@
 
 
         log('canExit() = ' + PREGGIEAPI.API.canExit(true));
+    });
+
+    $('#createDeepLink').click(function() {
+        $('#own-deep-link-container').append($('#own-deep-link').val() + '<br>');
     });
 
     $('#additional-buttons').load(PREGGIEAPI.API.API_HOST + '/api/v1/getAdditionalButtons?user_id=' + PREGGIEAPI.API.getCurrentUserId(), function() {
