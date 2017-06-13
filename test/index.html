@@ -72,6 +72,16 @@
     </div>
 
     <div class="form-group">
+        <div>
+            <strong>Вызвать метод getAuthToken()</strong>
+        </div>
+        <button class="btn btn-primary" type="button"
+                onclick="PREGGIEAPI.API.getAuthToken({success: function(token) { alert('getAuthToken() ->' + token); }, error: function(error) { alert('Error: ' + error); } });">
+            getAuthToken()
+        </button>
+    </div>
+
+    <div class="form-group">
         <label for="message">Вызвать метод showToast()</label>
         <div class="input-group">
             <input type="text" class="form-control" id="message" aria-describedby="basic-addon3" placeholder="Сообщение...">
