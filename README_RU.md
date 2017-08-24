@@ -11,7 +11,7 @@
 
 Или вы можете установить через npm:
 
-- `npm i momlife-extensions-js-api --save-dev`
+- `npm i momlife-extensions-js-api --save`
 
 Создать html страницу с подключенным js-api:
     

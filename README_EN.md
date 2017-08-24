@@ -11,7 +11,7 @@ Download\ clone project from bitbucket.
 
 or you can install via npm:
 
-- npm i momlife-extensions-js-api --save-dev
+- `npm i momlife-extensions-js-api --save`
 
 Create html page with connected js-api:
     
