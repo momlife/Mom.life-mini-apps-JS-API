@@ -7,7 +7,7 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      *
      * @type {Modules}
      */
-    window.PREGGIEAPI = Modules;
+    window.PREGGIEAPI = window.MOMLIFE = Modules;
 
 
     /**
@@ -200,7 +200,7 @@ Modules.load('device', 'utils', 'random').module('api', function(api) {
      *
      */
     INTERFACE.prototype.getApiVersion = function() {
-        var version = '1.7.0';
+        var version = '1.7.1';
 
         return version;
     };
